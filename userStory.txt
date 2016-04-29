@@ -1,0 +1,12 @@
+User Story
+
+-(role) can (action)
+-As a (role) I want (feature) so that (benefit).
+
+As an admin, I want an aesthetic layout so that my customers associate my product with quality.
+As an admin, I want to gather campaign finance data from ProPublica API so that data does not need to managed manually.
+As a user, I want to click on a state and see a list of that state’s congressional members.
+As a user, I want to click on a congressman/congresswoman and see a table of campaign contribution types.
+As a user, I want the financial data table to display in center of window so that I don’t have to search for the data that I request.
+As a user, I want to be able to close a specific table by clicking outside the boundaries of the table.
+As a user, I want to see a list of states on my mobile device instead of a full US map so that I can better interact with the site and its data.
