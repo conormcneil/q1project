@@ -8,7 +8,11 @@ body {
 }
 
 .main {
-  height: 100px;
+  height: auto;
   width: 100px;
   border-style: solid;
+}
+
+#Arizona {
+  color: white;
 }
