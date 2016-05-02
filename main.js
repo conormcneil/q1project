@@ -13,17 +13,8 @@ $(document).ready(function() {
   }
   displayStates(states);
 
-  // Create click events on state names
-  $("aside").addClass('hide');
-  $("article").click(function(event) {
-    var activeState = '';
-    event.stopPropagation();
-    activeState = event.target.innerHTML;
-    console.log(activeState);
-  });
-
-
   $("button").click(function() {
+    $("#resultView").html('');
     var firstName = $("#firstName").val();
     var lastName = $("#lastName").val();
     var searchName = "https://api.open.fec.gov/v1/candidates/search/?q=" + lastName + "," + firstName + "&cycles=2016&api_key=CmRwot11VrUfsEUf9IYGRJSNNacFhOzjQP5ULx7f"
@@ -40,16 +31,32 @@ $(document).ready(function() {
       success: function(data) {
         console.log(data);
         for (var i = 0; i < data.results.length; i++) {
-          $("#resultView").append('<p class="candidate">' + data.results[i].name + ': ' + data.results[i].candidate_id + '</p>');
-        }
+          $("#resultView").append('<p id="' + data.results[i].candidate_id + '">' + data.results[i].name + ': ' + data.results[i].candidate_id + '</p>');
+        };
+        $("p").click(function(event) {
+          var candidateID = event.target.id;
+          var committeeUrl = "https://api.open.fec.gov/v1/candidate/" + candidateID + "/committees/?sort=name&per_page=100&page=1&api_key=CmRwot11VrUfsEUf9IYGRJSNNacFhOzjQP5ULx7f";
+          console.log(candidateID);
+          $.ajax({
+            url: committeeUrl,
+            method: 'GET',
+            origin: 'http://localhost:8080',
+            success: function(moreData) {
+              console.log(moreData);
+              for (var i = 0; i < moreData.results.length; i++) {
+                $("#committeeView").html('');
+                $("#committeeView").append('<p>' + moreData.results[i].name + '</p>');
+              }
+            },
+            error: function(err) {
+              console.log(err);
+            }
+          })
+        })
       },
       error: function(error) {
         console.log(error);
       }
     });
   })
-})
-
-$("p").click(function() {
-  $(this).hide();
 })

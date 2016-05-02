@@ -33,6 +33,10 @@ header {
   order: 1;
 }
 
+.content {
+  text-align: center;
+}
+
 #resultView {
   background-color: aqua;
   margin-top: 5vh;
@@ -40,6 +44,20 @@ header {
   border-radius: 10px;
   width: auto;
   font-size: 2em;
+  text-align: center;
+  font-variant: small-caps;
+  font-family: arial;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+}
+#committeeView {
+  background-color: beige;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  border-radius: 10px;
+  width: auto;
+  font-size: 1.3em;
   text-align: center;
   font-variant: small-caps;
   font-family: arial;
