@@ -1,7 +1,7 @@
-* {
+/** {
   border-style: dashed;
   border-width: thin;
-}
+}*/
 
 body {
   background-color: forestgreen;
@@ -22,6 +22,7 @@ header {
   background-color: #eee;
   border-style: outset;
   align-self: center;
+  border-radius: 10px;
 }
 
 .body {
@@ -36,16 +37,34 @@ header {
 }
 
 td {
-  width: 50vw;
+  width: 35vw;
   font-size: 2em;
   text-align: center;
   font-variant: small-caps;
   font-family: arial;
   font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+
 }
 
 table {
   background-color: aqua;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  border-radius: 10px;
+}
+
+.tdHide>p {
+  color: purple;
+  text-align: center;
+  /*width: 45%;*/
+}
+
+.hide {
+  display: none;
 }
 
 .nav {
@@ -60,8 +79,4 @@ footer {
   background-color: orange;
   width: 90vw;
   order: 1;
-}
-
-#AZ {
-  color: white;
 }
