@@ -1,18 +1,67 @@
+* {
+  border-style: dashed;
+  border-width: thin;
+}
+
 body {
   background-color: forestgreen;
 }
 
 .container{
   display: flex;
-  flex-flow: row wrap;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.main {
-  height: auto;
-  width: 100px;
-  border-style: solid;
+header {
+  text-align: center;
+  font-family: arial;
+  font-variant: small-caps;
+  width: 90vw;
+  background-color: #eee;
+  border-style: outset;
+  align-self: center;
 }
 
-#Arizona {
+.body {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  /*align-items: center;*/
+  order: 1;
+}
+
+.content {
+}
+
+td {
+  width: 50vw;
+  font-size: 2em;
+  text-align: center;
+  font-variant: small-caps;
+  font-family: arial;
+  font-weight: 600;
+}
+
+table {
+  background-color: aqua;
+}
+
+.nav {
+  align-self: flex-start;
+  width: 30vw;
+  height: 120vh;
+  background-color: yellow;
+}
+
+footer {
+  text-align: center;
+  background-color: orange;
+  width: 90vw;
+  order: 1;
+}
+
+#AZ {
   color: white;
 }
