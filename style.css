@@ -1,7 +1,7 @@
-* {
+/** {
   border-style: dashed;
   border-width: thin;
-}
+}*/
 
 body {
   background-color: forestgreen;
@@ -34,19 +34,6 @@ header {
 }
 
 .content {
-}
-
-td {
-  width: 35vw;
-  font-size: 2em;
-  text-align: center;
-  font-variant: small-caps;
-  font-family: arial;
-  font-weight: 600;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-around;
 
 }
 
@@ -65,22 +52,19 @@ section {
   flex-direction: column;
 }
 
+aside {
+  background-color: pink;
+  border-radius: 10px;
+}
+
 p {
   color: purple;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  width: 40%;
+  display: inline-block;
 }
 
 .hide {
   display: none;
-}
-
-.nav {
-  align-self: flex-start;
-  width: 30vw;
-  height: 120vh;
-  background-color: yellow;
 }
 
 footer {
