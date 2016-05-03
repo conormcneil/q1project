@@ -15,47 +15,53 @@ $(document).ready(function() {
 
   $("button").click(function() {
     $("#resultView").html('');
-    var firstName = $("#firstName").val();
-    var lastName = $("#lastName").val();
-    var searchName = "https://api.open.fec.gov/v1/candidates/search/?q=" + lastName + "," + firstName + "&cycles=2016&api_key=CmRwot11VrUfsEUf9IYGRJSNNacFhOzjQP5ULx7f"
     var $state = $(".stateForm").val();
-    var searchState = "https://api.open.fec.gov/v1/candidates/?election_year=2014&page=1&incumbent_challenge=I&sort=state&state=" + searchState + "&per_page=100&api_key=CmRwot11VrUfsEUf9IYGRJSNNacFhOzjQP5ULx7f";
     var chamber = $("#chamberSearch").val();
-    var searchChamber = "https://api.open.fec.gov/v1/candidates/?page=1&sort=state&incumbent_challenge=I&candidate_status=F&candidate_status=C&state=" + $state + "&office=" + chamber + "&per_page=100&api_key=CmRwot11VrUfsEUf9IYGRJSNNacFhOzjQP5ULx7f";
-    console.log(chamber);
-    console.log(searchChamber);
+    var counter = 0;
+    var searchChamber = "https://api.open.fec.gov/v1/candidates/?page=1&sort=state&candidate_status=C&candidate_status=C&state=" + $state + "&office=" + chamber + "&per_page=100&api_key=CmRwot11VrUfsEUf9IYGRJSNNacFhOzjQP5ULx7f";
+
     $.ajax({
       url: searchChamber,
       method: 'GET',
       origin: 'http://localhost:8080',
       success: function(data) {
         console.log(data);
+        $("#resultView").append("<p style='font-size: 1.5em'>Official Candidates: 2016</p>")
         for (var i = 0; i < data.results.length; i++) {
-          $("#resultView").append('<p id="' + data.results[i].candidate_id + '">' + data.results[i].name + ': ' + data.results[i].candidate_id + '</p>');
-        };
-        $("p").click(function(event) {
-          var candidateID = event.target.id;
-          var committeeUrl = "https://api.open.fec.gov/v1/candidate/" + candidateID + "/committees/?sort=name&per_page=100&page=1&api_key=CmRwot11VrUfsEUf9IYGRJSNNacFhOzjQP5ULx7f";
-          console.log(candidateID);
+          $("#resultView").append('<p id="' + data.results[i].candidate_id + '">' + data.results[i].name + '</p>');
           $.ajax({
-            url: committeeUrl,
+            url: "https://api.open.fec.gov/v1/candidate/" + data.results[i].candidate_id + "/committees/?sort=name&per_page=100&page=1&api_key=CmRwot11VrUfsEUf9IYGRJSNNacFhOzjQP5ULx7f",
             method: 'GET',
             origin: 'http://localhost:8080',
             success: function(moreData) {
-              console.log(moreData);
+              console.log(moreData.results);
+              console.log(moreData.results.length);
               for (var i = 0; i < moreData.results.length; i++) {
-                $("#committeeView").html('');
-                $("#committeeView").append('<p>' + moreData.results[i].name + '</p>');
+                console.log(moreData.results[i].committee_id);
+                $.ajax({
+                  url: "https://api.open.fec.gov/v1/committee/" + moreData.results[i].committee_id + "/filings/?page=1&sort=-receipt_date&cycle=2016&report_year=2016&per_page=100&api_key=CmRwot11VrUfsEUf9IYGRJSNNacFhOzjQP5ULx7f",
+                  method: 'GET',
+                  origin: 'http://localhost:8080',
+                  success: function(bestData) {
+                    if (bestData.results.length > 0) {
+                      console.log(bestData.results);
+                      console.log(bestData.results.length);
+                      for (var i = 0; i < bestData.results.length; i++) {
+                        console.log(bestData.results[i].total_disbursements);
+                        counter += bestData.results[i].total_disbursements;
+                      }
+                    } else {
+                      console.log('no filing data for this committee');
+                    }
+                    console.log(counter);
+                    var counterFixed = counter.toFixed(2);
+                    $("#resultView").prepend($("#committeeView").html("$" + counterFixed));
+                  }
+                })
               }
-            },
-            error: function(err) {
-              console.log(err);
             }
-          })
-        })
-      },
-      error: function(error) {
-        console.log(error);
+          });
+        }
       }
     });
   })
