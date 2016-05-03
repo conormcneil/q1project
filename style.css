@@ -37,10 +37,15 @@ header {
   text-align: center;
 }
 
-#resultView {
+.sideBySide {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#incumbentView, #challengerView {
   background-color: aqua;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
+  margin: 3vh;
   border-radius: 10px;
   width: auto;
   text-align: center;
@@ -51,10 +56,9 @@ header {
   flex-direction: column;
 }
 
-#committeeView {
+#incumbentFinance, #challengerFinance {
   background-color: beige;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
+  margin: 3vh;
   border-radius: 10px;
   width: auto;
   font-size: 1.3em;
