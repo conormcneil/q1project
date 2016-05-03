@@ -4,7 +4,15 @@
 }*/
 
 body {
-  background-color: forestgreen;
+  /*background-image: url("img/CAMPAIGN-FINANCE-REFORM-facebook.jpg");*/
+  /*background-image: url("img/franklins.jpg");*/
+  /*background-image: url("img/campaignfinancereform.jpg");*/
+  /*GOOD HEADER?*/
+
+
+
+  background-repeat: no-repeat;
+  background-position: top;
 }
 
 .container{
@@ -18,11 +26,21 @@ header {
   text-align: center;
   font-family: arial;
   font-variant: small-caps;
-  width: 90vw;
-  background-color: #eee;
-  border-style: outset;
+  width: 100%;
+  margin: 0px 0px 0px 0px;
+  background-color: #000026;
+  /*background-image: url("img/campaign-finance-reform.png");
+  background-size: contain;*/
+  color: grey;
   align-self: center;
-  border-radius: 10px;
+  height: 10vh;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+#moneySuit {
+  height: inherit;
 }
 
 .body {
@@ -46,7 +64,6 @@ header {
 #incumbentView, #challengerView {
   background-color: aqua;
   margin: 3vh;
-  border-radius: 10px;
   width: auto;
   text-align: center;
   font-variant: small-caps;
@@ -59,7 +76,6 @@ header {
 #incumbentFinance, #challengerFinance {
   background-color: beige;
   margin: 3vh;
-  border-radius: 10px;
   width: auto;
   font-size: 1.3em;
   text-align: center;
