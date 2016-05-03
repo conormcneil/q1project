@@ -58,6 +58,7 @@ $(document).ready(function() {
       }
     }); // End ajax req: 1; incumbents
 
+    // Get Challengers Filing Info
     $.ajax({
       url: "https://api.open.fec.gov/v1/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=C&state=" + $state + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
       method: 'GET',
