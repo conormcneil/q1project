@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <title>Campaign Finance</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script> <!-- jQuery -->
-  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> <!-- D3 tag -->
-  <script src="main.js" defer></script>
+  <script src="jquery.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script> <!-- jQuery --> -->
+  <!-- <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> <!-- D3 tag --> -->
+  <script src="main2.js" defer></script>
 </head>
 <body>
   <div class="container">
@@ -20,7 +21,7 @@
       <!-- <nav class="nav"></nav> -->
       <main class="content">
         <select class="stateForm form-control">
-          <!-- <option id="stateSearch" value="">Select a State</option> -->
+          <option id="stateSearch" value="">Select a State</option>
         </select>
         <select name="" id="chamberSearch" class="chamberForm">
           <!-- <option value="">Select a Chamber</option> -->
@@ -30,20 +31,16 @@
         <button type="submit">Submit</button>
 
         <section class="sideBySide">
-          <article class="incumbent">
-            <section id="incumbentView"></section>
-            <section id="incumbentFinance"></section>
-          </article>
-          <article class="challengers">
-            <section id="challengerView"></section>
-            <section id="challengerFinance"></section>
-          </article>
+            <article id="incumbentView"></article>
+            <!-- <article id="incumbentFinance"></article> -->
+            <article id="challengerView"></article>
+            <!-- <article id="challengerFinance"></article> -->
         </section>
 
       </main>
 
     <!-- </div> -->
-    <footer>©2016 Conor Kingston</footer>
+    <footer>©2016 conor kingston</footer>
   </div>
 </body>
 </html>

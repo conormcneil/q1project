@@ -1,7 +1,7 @@
-/** {
+* {
   border-style: dashed;
   border-width: thin;
-}*/
+}
 
 body {
   background-image: url("img/CAMPAIGN-FINANCE-REFORM-facebook.jpg");
@@ -54,7 +54,7 @@ header {
 .sideBySide {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 aside {
@@ -83,16 +83,17 @@ aside {
   background-color: #aaa;
   color: white;
   margin: 1vh;
-  width: 45vw;
+  width: 20vw;
   text-align: center;
   font-variant: small-caps;
   font-family: arial;
   font-weight: 600;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-#incumbentFinance, #challengerFinance {
+ /*{
   background-color: beige;
   margin: 1vh;
   width: 45vw;
@@ -102,10 +103,7 @@ aside {
   font-family: arial;
   font-weight: 600;
   flex-direction: column;
-  /*display: flex;
-  flex-flow: row nowrap;*/
-
-}
+}*/
 
 .tabLeft {
   float: right;
