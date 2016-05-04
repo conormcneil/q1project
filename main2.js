@@ -3,8 +3,11 @@ var states = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','C
 var statesAbbr = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 var stateForm = $('.stateForm');
 var challengersFinalKeys = [];
-var vals = [];
-var finalObj = {};
+var incumbentsFinalKeys = [];
+var valsC = [];
+var valsI = [];
+var finalObjC = {};
+var finalObjI = {};
 
 var displayStates = function(arr) {
   for (var i = 0; i < arr.length; i++) {
@@ -16,14 +19,65 @@ displayStates(states);
 $("button").click(function() {
   $("#incumbentView").html('');
   $("#challengerView").html('');
+  getIncumbents();
   getChallengers();
 });
 
-var getChallengers = function() {
+// Get Incumbents Object
+var getIncumbents = function() {
   var $state = $(".stateForm").val();
   var chamber = $("#chamberSearch").val();
   $.ajax({
     url: "https://api.open.fec.gov/v1/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=I&state=" + $state + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
+    method: 'GET',
+    success: function(incumbents) {
+      var results = incumbents.results;
+      for (var i = 0; i < results.length; i++) {
+        incumbentsFinalKeys.push(results[i].candidate_id);
+        localStorage.setItem("candidate_" + [i] + "","" + results[i].candidate_id + "");
+        $("#incumbentView").append("<article id=" + results[i].candidate_id + " class=" + results[i].party + ">" + results[i].name + "</article>");
+      }
+      return getCommitteesI(results);
+    }
+  })
+}
+
+var getCommitteesI = function(arr) { // arr is array of candidates
+  var tmp = [];
+  for (var i = 0; i < arr.length; i++) {
+    $.ajax({
+      url: "https://api.open.fec.gov/v1/candidate/" + arr[i].candidate_id + "/committees/history/2016/?sort=-cycle&per_page=20&page=1&api_key=" + apiKey,
+      method: 'GET',
+      success: function(committees) { // returns with committee objects in an array per member
+        tmp = [];
+        var results = committees.results;
+        for (var j = 0; j < results.length; j++) {
+          tmp.push(results[j].committee_id);
+        }
+        if (tmp.length === results.length) {
+          valsI.push(tmp);
+          if (valsI.length === arr.length) {
+            makeObjI(arr,valsI);
+          }
+        }
+      }
+    })
+  }
+}
+
+var makeObjI = function(keys, values) {
+  for (var i = 0; i < keys.length; i++) {
+    finalObjI[keys[i].candidate_id] = values[i];
+  }
+  console.log(finalObjI);
+}
+
+// Get Challenger Object
+var getChallengers = function() {
+  var $state = $(".stateForm").val();
+  var chamber = $("#chamberSearch").val();
+  $.ajax({
+    url: "https://api.open.fec.gov/v1/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=C&state=" + $state + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
     method: 'GET',
     success: function(challengers) {
       var results = challengers.results;
@@ -50,9 +104,9 @@ var getCommitteesC = function(arr) { // arr is array of candidates
           tmp.push(results[j].committee_id);
         }
         if (tmp.length === results.length) {
-          vals.push(tmp);
-          if (vals.length === arr.length) {
-            makeObj(arr,vals);
+          valsC.push(tmp);
+          if (valsC.length === arr.length) {
+            makeObjC(arr,valsC);
           }
         }
       }
@@ -60,11 +114,11 @@ var getCommitteesC = function(arr) { // arr is array of candidates
   }
 }
 
-var makeObj = function(keys, values) {
+var makeObjC = function(keys, values) {
   for (var i = 0; i < keys.length; i++) {
-    finalObj[keys[i].candidate_id] = values[i];
+    finalObjC[keys[i].candidate_id] = values[i];
   }
-  console.log(finalObj);
+  console.log(finalObjC);
 }
 
 
