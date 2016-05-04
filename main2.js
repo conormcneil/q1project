@@ -2,8 +2,6 @@ var apiKey = 'CmRwot11VrUfsEUf9IYGRJSNNacFhOzjQP5ULx7f';
 var states = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Deleware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 var statesAbbr = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 var stateForm = $('.stateForm');
-var $state = $(".stateForm").val();
-var chamber = $("#chamberSearch").val();
 
 var displayStates = function(arr) {
   for (var i = 0; i < arr.length; i++) {
@@ -17,16 +15,17 @@ $("button").click(function() {
   getChallengers();
 });
 
-
-
 var challengersFinalKeys = [];
-var test = [];
+var challengersCommittees = [];
+var challengersCommitteeIds = [];
 var committeesFinalValues = {};
+var committeeSum = 0;
 
 var getChallengers = function() {
-  console.log(chamber);
+  var $state = $(".stateForm").val();
+  var chamber = $("#chamberSearch").val();
   $.ajax({
-    url: "https://api.open.fec.gov/v1/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=C&state=AZ" + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
+    url: "https://api.open.fec.gov/v1/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=I&state=AZ" + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
     method: 'GET',
     success: function(challengers) {
       var results = challengers.results;
@@ -42,60 +41,71 @@ var getChallengers = function() {
 
 var getCommitteesC = function(arr) { // arr is array of candidates
   for (var i = 0; i < arr.length; i++) {
-    // console.log(i); // for loop completes before executing ajax
-
     $.ajax({
       url: "https://api.open.fec.gov/v1/candidate/" + arr[i].candidate_id + "/committees/history/2016/?sort=-cycle&per_page=20&page=1&api_key=" + apiKey,
       method: 'GET',
-      success: function(committees) {
+      success: function(committees) { // returns with committee objects in an array per member
         var results = committees.results;
-        test.push(results);
-        return yeezy(test);
-        // return results;
-        // return getFilings(results); // pass an array to next function call
+        challengersCommittees.push(results);
+        return makeObj(challengersCommittees);
       }
     })
   }
-  var yeezy = function(arr) {
-    if (arr.length === challengersFinalKeys.length) {
-      // console.log(arr);
-      console.log(challengersFinalKeys);
-      console.log(test);
+  var makeObj = function(arr) {
+    if (arr.length === challengersFinalKeys.length) { // if all members committees have been pushed to array, continue. Else, return to previous for loop until array is completed
       for (var i = 0; i < challengersFinalKeys.length; i++) {
-        committeesFinalValues[challengersFinalKeys[i]] = test[i];
+        committeesFinalValues[challengersFinalKeys[i]] = challengersCommittees[i];
+        // console.log(challengersCommittees[i][j].committee_id);
       }
-      console.log(committeesFinalValues); // Final key-value pair object
+      console.log(committeesFinalValues); // Final key-value pair object??
     } else {
       return
     }
+    return getFilings(committeesFinalValues);
   }
 }
 
-
-var getFilings = function(arr) {
-  console.log(arr);
-    // $.ajax({
-    //   url: "https://api.open.fec.gov/v1/committee/" + arr[i].committee_id + "/filings/?page=1&sort=-receipt_date&cycle=2016&report_year=2016&per_page=100&api_key=" + apiKey,
-    //   method: 'GET',
-    //   success: function(filings) {
-    //     console.log(filings.results);
-    //     for (var j = 0; j < filings.results.length; j++) {
-    //       console.log(filings.results[j].total_receipts);
-    //     }
-    //     return getReceipts(filings.results);
-    //   }
-    // })
+var getFilings = function(obj) {
+  var keys = Object.keys(obj);
+  for (var i = 0; i < keys.length; i++) {
+    var tmp = [];
+    for (var j = 0; j < obj[keys[i]].length; j++) {
+      tmp.push(obj[keys[i]][j].committee_id);
+    }
+    test(tmp);
   }
+}
 
-// var getReceipts = function(arr) {
-//   var counter = 0;
-//   console.log(arr);
-//   for (var i = 0; i < arr.length; i++) {
-//     counter += arr[i].total_receipts;
+var test = function(x) {
+  var counter = 0;
+  for (var i = 0; i < x.length; i++) {
+    $.ajax({
+      url: "https://api.open.fec.gov/v1/committee/" + x[i] + "/filings/?page=1&sort=-receipt_date&cycle=2016&report_year=2016&per_page=100&api_key=" + apiKey,
+      method: 'GET',
+      success: function(receipt) {
+        var results = receipt.results;
+        console.log(results);
+        for (var i = 0; i < results.length; i++) {
+          console.log(results[i].total_receipts);
+          counter += results[i].total_receipts;
+        }
+        console.log(counter);
+      }
+    })
+  }
+}
+
+// var sumReceipts = function(inp) {
+//   var sums = 0;
+//   for (var i = 0; i < inp.length; i++) {
+//     $.ajax({
+//       url: "https://api.open.fec.gov/v1/committee/" + inp[i] + "/filings/?page=1&sort=-receipt_date&cycle=2016&report_year=2016&per_page=100&api_key=" + apiKey,
+//       method: 'GET',
+//       success: function(totalReceipts) {
+//         console.log(totalReceipts.results);
+//       }
+//     })
 //   }
-//   console.log(counter);
-//   $("#challengerFinance").append("<article class=finance>$" + counter + "</article");
-//   console.log(challengersFinalKeys);
 // }
 
 
