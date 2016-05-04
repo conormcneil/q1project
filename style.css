@@ -79,7 +79,7 @@ aside {
   color: white;
 }
 
-#incumbentView, #challengerView {
+#incumbentView, #incumbentFinance, #challengerView, #challengerFinance {
   background-color: #aaa;
   color: white;
   margin: 1vh;
@@ -90,6 +90,14 @@ aside {
   font-weight: 600;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.finance {
+  background-color: white;
+  color: black;
+  width: 100%;
+  flex-direction: column;
   flex-wrap: wrap;
 }
 

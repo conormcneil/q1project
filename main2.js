@@ -4,7 +4,6 @@ var statesAbbr = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','I
 var stateForm = $('.stateForm');
 var $state = $(".stateForm").val();
 var chamber = $("#chamberSearch").val();
-var runningTotal = 0;
 
 var displayStates = function(arr) {
   for (var i = 0; i < arr.length; i++) {
@@ -18,50 +17,86 @@ $("button").click(function() {
   getChallengers();
 });
 
+
+
+var challengersFinalKeys = [];
+var test = [];
+var committeesFinalValues = {};
+
 var getChallengers = function() {
+  console.log(chamber);
   $.ajax({
-    url: "https://api.open.fec.gov/v1/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=I&state=AZ" + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
+    url: "https://api.open.fec.gov/v1/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=C&state=AZ" + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
     method: 'GET',
     success: function(challengers) {
-      console.log("Members:", challengers.results, challengers.results.length);
-      return getCommitteesC(challengers.results);
-      // return challengers.results;
+      var results = challengers.results;
+      for (var i = 0; i < results.length; i++) {
+        challengersFinalKeys.push(results[i].candidate_id);
+        localStorage.setItem("candidate_" + [i] + "","" + results[i].candidate_id + "");
+        $("#challengerView").append("<article id=" + results[i].candidate_id + " class=" + results[i].party + ">" + results[i].name + "</article>");
+      }
+      return getCommitteesC(results);
     }
   })
 }
-var getCommitteesC = function(arr) {
+
+var getCommitteesC = function(arr) { // arr is array of candidates
   for (var i = 0; i < arr.length; i++) {
+    // console.log(i); // for loop completes before executing ajax
+
     $.ajax({
       url: "https://api.open.fec.gov/v1/candidate/" + arr[i].candidate_id + "/committees/history/2016/?sort=-cycle&per_page=20&page=1&api_key=" + apiKey,
       method: 'GET',
       success: function(committees) {
-        console.log("Member " + [i] + " Committees: ", committees.results);
-        return getFilings(committees.results); // pass an array to next function call
-        // return committees.results;
+        var results = committees.results;
+        test.push(results);
+        return yeezy(test);
+        // return results;
+        // return getFilings(results); // pass an array to next function call
       }
     })
   }
+  var yeezy = function(arr) {
+    if (arr.length === challengersFinalKeys.length) {
+      // console.log(arr);
+      console.log(challengersFinalKeys);
+      console.log(test);
+      for (var i = 0; i < challengersFinalKeys.length; i++) {
+        committeesFinalValues[challengersFinalKeys[i]] = test[i];
+      }
+      console.log(committeesFinalValues); // Final key-value pair object
+    } else {
+      return
+    }
+  }
 }
+
+
 var getFilings = function(arr) {
-  for (var i = 0; i < arr.length; i++) {
-    $.ajax({
-      url: "https://api.open.fec.gov/v1/committee/" + arr[i].committee_id + "/filings/?page=1&sort=-receipt_date&cycle=2016&report_year=2016&per_page=100&api_key=" + apiKey,
-      method: 'GET',
-      success: function(filings) {
-        console.log(filings.results);
-        return getReceipts(filings.results);
-      }
-    })
-  }
-}
-var getReceipts = function(arr) {
-  var counter = 0;
   console.log(arr);
-  for (var i = 0; i < arr.length; i++) {
-    counter += arr[i].total_receipts;
+    // $.ajax({
+    //   url: "https://api.open.fec.gov/v1/committee/" + arr[i].committee_id + "/filings/?page=1&sort=-receipt_date&cycle=2016&report_year=2016&per_page=100&api_key=" + apiKey,
+    //   method: 'GET',
+    //   success: function(filings) {
+    //     console.log(filings.results);
+    //     for (var j = 0; j < filings.results.length; j++) {
+    //       console.log(filings.results[j].total_receipts);
+    //     }
+    //     return getReceipts(filings.results);
+    //   }
+    // })
   }
-  console.log(counter);
-}
+
+// var getReceipts = function(arr) {
+//   var counter = 0;
+//   console.log(arr);
+//   for (var i = 0; i < arr.length; i++) {
+//     counter += arr[i].total_receipts;
+//   }
+//   console.log(counter);
+//   $("#challengerFinance").append("<article class=finance>$" + counter + "</article");
+//   console.log(challengersFinalKeys);
+// }
 
 
 
