@@ -4,11 +4,7 @@
 }*/
 
 body {
-  /*background-image: url("img/CAMPAIGN-FINANCE-REFORM-facebook.jpg");*/
-  /*background-image: url("img/franklins.jpg");*/
-  /*background-image: url("img/campaignfinancereform.jpg");*/
-  /*GOOD HEADER?*/
-
+  background-image: url("img/CAMPAIGN-FINANCE-REFORM-facebook.jpg");
   background-repeat: no-repeat;
   background-position: top;
 }
@@ -85,9 +81,9 @@ aside {
 
 #incumbentView, #challengerView {
   background-color: #aaa;
-  color: #747d7d;
-  margin: 3vh;
-  width: 40vw;
+  color: white;
+  margin: 1vh;
+  width: 45vw;
   text-align: center;
   font-variant: small-caps;
   font-family: arial;
@@ -98,13 +94,29 @@ aside {
 
 #incumbentFinance, #challengerFinance {
   background-color: beige;
-  margin: 3vh;
+  margin: 1vh;
+  width: 45vw;
   font-size: 1.3em;
   text-align: center;
   font-variant: small-caps;
   font-family: arial;
   font-weight: 600;
   flex-direction: column;
+  /*display: flex;
+  flex-flow: row nowrap;*/
+
+}
+
+.tabLeft {
+  float: right;
+  font-size: 0.5em;
+  width: 45%;
+}
+
+.tabRight {
+  float: right;
+  font-size: 0.5em;
+  width: 45%;
 }
 
 footer {
