@@ -6,13 +6,17 @@ var $state = $(".stateForm").val();
 var chamber = $("#chamberSearch").val();
 var runningTotal = 0;
 
-
 var displayStates = function(arr) {
   for (var i = 0; i < arr.length; i++) {
     stateForm.append("<option value='" + statesAbbr[i] + "'>" + arr[i] + "</option>");
   }
 }
 displayStates(states);
+
+$("button").click(function() {
+  $("#incumbentView").html('');
+  getChallengers();
+});
 
 var getChallengers = function() {
   $.ajax({
@@ -61,10 +65,7 @@ var getReceipts = function(arr) {
 
 
 
-$("button").click(function() {
-  $("#incumbentView").html('');
-  getChallengers();
-})
+
 
 
 
