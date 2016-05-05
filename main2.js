@@ -20,7 +20,7 @@ $("button").click(function() {
   $("#incumbentView").html('');
   $("#challengerView").html('');
   getIncumbents();
-  // getChallengers();
+  getChallengers();
 });
 
 // Get Incumbents Object
@@ -127,26 +127,53 @@ var makeObjC = function(keys, values) {
 
 // Calculate receipts from committee filings
 var sumPerI = function(obj) {
+  // console.log(obj);
   var keys = Object.keys(obj);
-  for (var i = 0; i < obj[keys].length; i++) {
-    console.log(obj.keys);
+  var commIds = [];
+  console.log(keys.length);
+  for (var i = 0; i < keys.length; i++) {
+    var countOut = 0;
+    commIds.push(obj[keys[i]]);
+    console.log(keys[i]);
+    console.log(commIds[i]);
     console.log(i);
-    $.ajax({
-      url: "https://api.open.fec.gov/v1/committee/" + obj[keys[i]] + "/filings/?page=1&cycle=2016&report_year=2016&per_page=100&api_key=" + apiKey,
-      method: 'GET',
-      success: function(filings) {
-        var sum = 0;
-        var results = filings.results;
-        console.log(results);
-        for (var i = 0; i < results.length; i++) {
-          console.log(results[i].total_receipts);
-          sum += results[i].total_receipts;
-        }
-        console.log(sum);
-      }
-    });
+    if (commIds[i].length === 0) {
+      $("#" + keys[i] + "").append('<p style="color: black">NO ACTIVE COMMITTEES</p>');
+      console.log('This candidate is not currently associated with any committees that have filed financial information with the FEC.');
+    } else {
+      for (var j = 0; j < commIds[i].length; j++) {
+        console.log(commIds[i][j]);
+        var counter = 0;
+        var tmp = [];
+        $.ajax({
+          url: "https://api.open.fec.gov/v1/committee/" + commIds[i][j] + "/filings/?page=1&cycle=2016&per_page=100&api_key=" + apiKey,
+          method: 'GET',
+          success: function(filings) {
+            var results = filings.results;
+            console.log(results);
+            for (var k = 0; k < results.length; k++) {
+              console.log(results[k].total_receipts);
+              counter += results[k].total_receipts;
+            }
+            console.log(counter);
+            countOut += counter;
+            tmp.push(countOut);
+            console.log(commIds.length);
+            if (tmp.length === commIds.length) {
+              console.log(countOut);
+              console.log(tmp);
+
+            }
+          }
+        })
+      }///////// HERE
+    }
+    console.log(tmp);
   }
+
 }
+
+
 
 
 
