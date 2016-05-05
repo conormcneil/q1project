@@ -20,7 +20,7 @@ $("button").click(function() {
   $("#incumbentView").html('');
   $("#challengerView").html('');
   getIncumbents();
-  getChallengers();
+  // getChallengers();
 });
 
 // Get Incumbents Object
@@ -70,6 +70,8 @@ var makeObjI = function(keys, values) {
     finalObjI[keys[i].candidate_id] = values[i];
   }
   console.log(finalObjI);
+  // Send finalObjI to calculate receipts
+  sumPerI(finalObjI);
 }
 
 // Get Challenger Object
@@ -119,10 +121,32 @@ var makeObjC = function(keys, values) {
     finalObjC[keys[i].candidate_id] = values[i];
   }
   console.log(finalObjC);
+  // Send finalObjC to calculate receipts
 }
 
 
-
+// Calculate receipts from committee filings
+var sumPerI = function(obj) {
+  var keys = Object.keys(obj);
+  for (var i = 0; i < obj[keys].length; i++) {
+    console.log(obj.keys);
+    console.log(i);
+    $.ajax({
+      url: "https://api.open.fec.gov/v1/committee/" + obj[keys[i]] + "/filings/?page=1&cycle=2016&report_year=2016&per_page=100&api_key=" + apiKey,
+      method: 'GET',
+      success: function(filings) {
+        var sum = 0;
+        var results = filings.results;
+        console.log(results);
+        for (var i = 0; i < results.length; i++) {
+          console.log(results[i].total_receipts);
+          sum += results[i].total_receipts;
+        }
+        console.log(sum);
+      }
+    });
+  }
+}
 
 
 
