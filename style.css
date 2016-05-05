@@ -168,3 +168,12 @@ select, button, #submitButton {
 #submitButton {
   margin-top: 10px;
 }
+
+#resetButton {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}

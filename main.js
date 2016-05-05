@@ -28,12 +28,15 @@ $(document).ready(function() {
     $("#challengerView").html('');
     $("#incumbentCommittees").html('');
     $("#challengerCommittees").html('');
+    $(".hideOnSubmit").hide();
     getIncumbents();
     getChallengers();
   });
 
   $("#calculateButton").click(function() {
     // Incumbents: gather committee_id's into array to check filing
+    $("#calculateButton").hide();
+    $("#resetButton").show();
     var inComs = $("#incumbentCommittees").children();
     var inComsArr = [];
     var chComs = $("#challengerCommittees").children();

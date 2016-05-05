@@ -18,7 +18,7 @@
     </header>
       <!-- <nav class="nav"></nav> -->
       <main class="content">
-        <section>
+        <section class="hideOnSubmit">
           <select class="stateForm form-control">
             <!-- <option id="stateSearch" value="">Select a State</option> -->
           </select>
@@ -28,7 +28,7 @@
             <option value="H">House of Representatives</option>
           </select>
         </section>
-        <button id="submitButton" type="submit">Submit</button>
+        <button id="submitButton" class="hideOnSubmit" type="submit">Submit</button>
 
 
         <section class="committeeResults">
@@ -40,6 +40,7 @@
           </aside>
         </section>
         <button id="calculateButton">Calculate Committee Receipts</button>
+        <button id="resetButton"><a href="index.html">Reset</a></button>
         <section class="sideBySideMain">
           <aside id="incumbentView"></aside>
           <aside id="challengerView"></aside>
