@@ -20,6 +20,7 @@ header {
   text-align: center;
   font-family: arial;
   font-variant: small-caps;
+  font-size: 1.3em;
   width: 100%;
   margin: 0px 0px 0px 0px;
   background-color: #000026;
@@ -51,40 +52,54 @@ header {
   margin-top: 10vh;
 }
 
-.sideBySide {
+.sideBySideMain, .committeeResults {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
 }
 
-article {
-  width: 100%;
-  height: auto;
+aside, article {
+  width: 32.75%;
+  min-height: 8vh;
   border-style: solid;
   border-width: 0.1em;
   border-color: grey;
+  border-radius: 10px;
+  color: white;
 }
 
-.REP {
-  background-color: red;
-  color: white;
+.REP, .CON {
+  background-color: rgba(255,51,51,.85);
 }
 
 .DEM {
-  background-color: blue;
-  color: white;
+  background-color: rgba(25,25,255,.85);
 }
 
 .IND {
-  background-color: purple;
-  color: white;
+  background-color: rgba(153,50,153,.85);
 }
 
-#incumbentView, #incumbentFinance, #challengerView, #challengerFinance {
-  background-color: #aaa;
+.GRE {
+  background-color: rgba(50,153,50,.85);
+}
+
+.NPA {
+  background-color: rgba(255,165,0,.85);
+}
+
+.LIB {
+  background-color: rgba(204,204,0,.85);
+}
+
+#incumbentView, #challengerView, #incumbentCommittees, #challengerCommittees {
+  background-color: rgba(0,0,0,0);
   color: white;
-  margin: 1vh;
+  /*border-style: none;*/
+  margin: 5vh;
+  margin-top: 1vh;
   width: 40vw;
+  height: auto;
   text-align: center;
   font-variant: small-caps;
   font-family: arial;
@@ -92,7 +107,13 @@ article {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
 }
+
+/*#incumbentCommittees p, #challengerCommittees p {
+  font-size: 2em;
+}*/
 
 .finance {
   background-color: white;
@@ -101,18 +122,6 @@ article {
   flex-direction: column;
   flex-wrap: wrap;
 }
-
- /*{
-  background-color: beige;
-  margin: 1vh;
-  width: 45vw;
-  font-size: 1.3em;
-  text-align: center;
-  font-variant: small-caps;
-  font-family: arial;
-  font-weight: 600;
-  flex-direction: column;
-}*/
 
 .tabLeft {
   float: right;
@@ -141,4 +150,17 @@ footer {
   display: flex;
   flex-flow: row-reverse;
   align-items: center;
+}
+
+select, button, #submitButton {
+  background-color: darkblue;
+  font-size: 1.2em;
+  color: white;
+  height: auto;
+  width: auto;
+  border-radius: 8px;
+}
+
+#submitButton {
+  margin-top: 10px;
 }

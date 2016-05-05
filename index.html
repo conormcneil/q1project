@@ -7,7 +7,7 @@
   <script src="jquery.js"></script>
   <!-- <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script> <!-- jQuery --> -->
   <!-- <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> <!-- D3 tag --> -->
-  <script src="main2.js" defer></script>
+  <script src="main.js" defer></script>
   <!-- <script src="deleteme.js" defer></script> -->
 </head>
 <body>
@@ -21,21 +21,27 @@
     <!-- <div class="body"> -->
       <!-- <nav class="nav"></nav> -->
       <main class="content">
-        <select class="stateForm form-control">
-          <!-- <option id="stateSearch" value="">Select a State</option> -->
-        </select>
-        <select name="" id="chamberSearch" class="chamberForm">
-          <!-- <option value="">Select a Chamber</option> -->
-          <option value="S">Senate</option>
-          <option value="H">House of Representatives</option>
-        </select>
-        <button type="submit">Submit</button>
+        <section>
+          <select class="stateForm form-control">
+            <!-- <option id="stateSearch" value="">Select a State</option> -->
+          </select>
+          <select name="" id="chamberSearch" class="chamberForm">
+            <!-- <option value="">Select a Chamber</option> -->
+            <option value="S">Senate</option>
+            <option value="H">House of Representatives</option>
+          </select>
+        </section>
+        <button id="submitButton" type="submit">Submit</button>
 
-        <section class="sideBySide">
-          <!-- <article id="incumbentFinance"></article> -->
-            <article id="incumbentView"></article>
-            <article id="challengerView"></article>
-            <!-- <article id="challengerFinance"></article> -->
+
+        <section class="committeeResults">
+          <aside id="incumbentCommittees"></aside>
+          <aside id="challengerCommittees"></aside>
+        </section>
+        <button id="calculateButton">Calculate Committee Receipts</button>
+        <section class="sideBySideMain">
+          <aside id="incumbentView"></aside>
+          <aside id="challengerView"></aside>
         </section>
 
       </main>
