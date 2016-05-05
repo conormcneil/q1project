@@ -177,3 +177,10 @@ a {
   text-decoration: none;
   color: white;
 }
+
+.formError {
+  height: auto;
+  width: auto;
+  color: red;
+  font-size: 1.5em;
+}

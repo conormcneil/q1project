@@ -24,6 +24,19 @@ $(document).ready(function() {
   displayStates(states);
 
   $("#submitButton").click(function() {
+    var $state = $(".stateForm").val();
+    if (!$state) {
+      console.log("no state");
+      $(".formError").html("Please select a state.");
+      return;
+    }
+    var chamber = $("#chamberSearch").val();
+    if (!chamber) {
+      console.log("error");
+      $(".formError").html("Please choose a chamber.");
+      return;
+    }
+    $(".formError").html('');
     $("#incumbentView").html('');
     $("#challengerView").html('');
     $("#incumbentCommittees").html('');
@@ -198,8 +211,6 @@ $(document).ready(function() {
     for (var i = 0; i < keys.length; i++) {
       finalObjI[keys[i].candidate_id] = values[i];
     }
-    // Send finalObjI to calculate receipts
-    // sumPerI(finalObjI);
   }
 
   // Get Challenger Object
@@ -245,7 +256,6 @@ $(document).ready(function() {
     for (var i = 0; i < keys.length; i++) {
       finalObjC[keys[i].candidate_id] = values[i];
     }
-    // Send finalObjC to calculate receipts
   }
 })
 
