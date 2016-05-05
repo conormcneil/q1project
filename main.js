@@ -42,19 +42,38 @@ $(document).ready(function() {
     $("#incumbentCommittees").html('');
     $("#challengerCommittees").html('');
     $(".hideOnSubmit").hide();
+    $("#calculateButton").show();
     getIncumbents();
     getChallengers();
   });
 
   $("#calculateButton").click(function() {
     // Incumbents: gather committee_id's into array to check filing
-    $("#calculateButton").hide();
-    $("#resetButton").show();
     var inComs = $("#incumbentCommittees").children();
     var inComsArr = [];
     var chComs = $("#challengerCommittees").children();
     var chComsArr = [];
-    console.log(inComs);
+    if (inComs.length === 0) {
+      console.log('error no candidate selected');
+      $("#incumbentCommittees").html('<p class="error">Please select a candidate.</p>');
+      return;
+    }
+    if (chComs.length === 0) {
+      console.log('error no candidate selected');
+      $("#challengerCommittees").html('<p class="error">Please select a candidate.</p>');
+      return;
+    }
+    // if (chComs[0].innerText === 'This candidate is not currently associated with any active committees') { // NO ASSOCIATED COMMITTEES
+    //   console.log('error no committees to sum');
+    //   if (confirm("This candidate is not currently associated with any active committees. Are you sure you would like to continue? Any other selected committees will be displayed.")) {
+    //
+    //   } else {
+    //     return;
+    //   }
+    //   return;
+    // }
+    $("#calculateButton").hide();
+    $("#resetButton").show();
     for (var i = 0; i < inComs.length; i++) {
       if (inComs[i]) {
         inComsArr.push(inComs[i].id);
@@ -126,6 +145,7 @@ $(document).ready(function() {
     var id = target.closest("aside").id;
 
     if (id === "incumbentView") {
+      $("#incumbentCommittees").html('');
       if (finalObjI[candId].length === 0) {
         $("#incumbentCommittees").html('<p>This candidate is not currently associated with any active committees</p>');
       } else {
@@ -134,6 +154,7 @@ $(document).ready(function() {
         }
       }
     } else if (id === 'challengerView') {
+      $("#challengerCommittees").html('');
       if (finalObjC[candId].length === 0) {
         $("#challengerCommittees").html('<p style="font-size: 2em">This candidate is not currently associated with any active committees</p> ');
       } else {

@@ -165,6 +165,10 @@ select, button, #submitButton {
   border-radius: 8px;
 }
 
+#calculateButton {
+  display: none;
+}
+
 #submitButton {
   margin-top: 10px;
 }
@@ -181,6 +185,11 @@ a {
 .formError {
   height: auto;
   width: auto;
+  color: red;
+  font-size: 1.5em;
+}
+
+.error {
   color: red;
   font-size: 1.5em;
 }
