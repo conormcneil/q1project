@@ -111,9 +111,11 @@ aside, article {
   align-items: center;
 }
 
-/*#incumbentCommittees p, #challengerCommittees p {
-  font-size: 2em;
-}*/
+.committeesSum {
+  background-color: red;
+  height: 50px;
+  width: 50px;
+}
 
 .finance {
   background-color: white;

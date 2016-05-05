@@ -24,10 +24,6 @@ $(document).ready(function() {
   displayStates(states);
 
   $("#submitButton").click(function() {
-    window.localStorage.clear();
-    console.log(window.localStorage);
-    // $("#incumbentView").html('<p>Incumbents Up for Re-Election</p>');
-    // $("#challengerView").html('<p>Official Challengers</p>');
     $("#incumbentView").html('');
     $("#challengerView").html('');
     $("#incumbentCommittees").html('');
@@ -36,13 +32,50 @@ $(document).ready(function() {
     getChallengers();
   });
 
+  $("#calculateButton").click(function() {
+    // Incumbents: gather committee_id's into array to check filing
+    var inComs = $("#incumbentCommittees").children();
+    var inComsArr = [];
+    for (var i = 0; i < inComs.length; i++) {
+      inComsArr.push(inComs[i].id);
+    }
+    // Send array for filings and receipt sums
+    committeeFilings(inComsArr);
+  })
+
+  var committeeFilings = function(arr) {
+    console.log(arr);
+    var arrLocal = arr;
+    for (var i = 0; i < arr.length; i++) {
+      var totalReceiptsSum = 0;
+      console.log(arrLocal[i]);
+      $.ajax({
+        url: "https://api.open.fec.gov/v1/committee/" + arr[i] + "/filings/?cycle=2016&page=1&per_page=20&api_key=" + apiKey,
+        method: 'GET',
+        success: function(filings) {
+          var results = filings.results;
+          console.log(arrLocal);
+          console.log(results);
+          for (var j = 0; j < results.length; j++) {
+            totalReceiptsSum += results[j].total_receipts;
+          }
+          // return results;
+          // console.log(i);
+          console.log(arrLocal);
+          $(".committeesSum").html("$" + totalReceiptsSum);
+          console.log(totalReceiptsSum);
+        }
+      })
+    }
+  }
+
   $("aside").click(function() {
     var candId = event.target.id;
     var target = event.target;
     var id = target.closest("aside").id;
 
     if (id === "incumbentView") {
-      $("#incumbentCommittees").html('');
+      $("#incumbentCommittees").html('<section class="committeesSum"></section>');
       if (finalObjI[candId].length === 0) {
         $("#incumbentCommittees").append('<p>This candidate is not currently associated with any active committees</p>');
       }
@@ -50,7 +83,7 @@ $(document).ready(function() {
         getCommsI(finalObjI[candId][i]);
       }
     } else if (id === 'challengerView') {
-      $("#challengerCommittees").html('');
+      $("#challengerCommittees").html('<section class="committeesSum"></section>');
       if (finalObjC[candId].length === 0) {
         $("#challengerCommittees").append('<p style="font-size: 2em">This candidate is not currently associated with any active committees</p> ');
       }
@@ -61,28 +94,23 @@ $(document).ready(function() {
   })
 
   var getCommsI = function(committeeID) {
-    console.log('getCommitteesI');
-    console.log(committeeID);
     $.ajax({
       url:"https://api.open.fec.gov/v1/committee/" + committeeID + "/?page=1&per_page=20&sort=name&api_key=" + apiKey,
       method: 'GET',
       success: function(committee) {
         var result = committee.results[0].name;
-        console.log(result);
-        $("#incumbentCommittees").append('<p class="committeeName">' + result + '</p>');
+        $("#incumbentCommittees").append('<p id="' + committee.results[0].committee_id + '" class="committeeName">' + result + '</p>');
         return result;
       }
     })
   }
   var getCommsC = function(committeeID) {
-    console.log(committeeID);
     $.ajax({
       url:"https://api.open.fec.gov/v1/committee/" + committeeID + "/?page=1&per_page=20&sort=name&api_key=" + apiKey,
       method: 'GET',
       success: function(committee) {
         var result = committee.results[0].name;
-        console.log(result);
-        $("#challengerCommittees").append('<p class="committeeName">' + result + '</p>');
+        $("#challengerCommittees").append('<p id="' + committee.results[0].committee_id + '" class="committeeName">' + result + '</p>');
         return result;
       }
     })
@@ -106,7 +134,6 @@ $(document).ready(function() {
       }
     })
   }
-
   var getCommitteesI = function(arr) { // arr is array of candidates
     var tmp = [];
     for (var i = 0; i < arr.length; i++) {
@@ -129,19 +156,16 @@ $(document).ready(function() {
       })
     }
   }
-
   var makeObjI = function(keys, values) {
     for (var i = 0; i < keys.length; i++) {
       finalObjI[keys[i].candidate_id] = values[i];
     }
-    console.log(finalObjI);
     // Send finalObjI to calculate receipts
     // sumPerI(finalObjI);
   }
 
   // Get Challenger Object
   var getChallengers = function() {
-    console.log('getChallengers');
     var $state = $(".stateForm").val();
     var chamber = $("#chamberSearch").val();
     $.ajax({
@@ -157,9 +181,7 @@ $(document).ready(function() {
       }
     })
   }
-
   var getCommitteesC = function(arr) { // arr is array of candidates
-    console.log('getCommitteesC');
     var tmp = [];
     for (var i = 0; i < arr.length; i++) {
       $.ajax({
@@ -181,13 +203,10 @@ $(document).ready(function() {
       })
     }
   }
-
   var makeObjC = function(keys, values) {
-    console.log('makeObjC');
     for (var i = 0; i < keys.length; i++) {
       finalObjC[keys[i].candidate_id] = values[i];
     }
-    console.log(finalObjC);
     // Send finalObjC to calculate receipts
   }
 })
