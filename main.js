@@ -36,14 +36,28 @@ $(document).ready(function() {
     // Incumbents: gather committee_id's into array to check filing
     var inComs = $("#incumbentCommittees").children();
     var inComsArr = [];
+    var chComs = $("#challengerCommittees").children();
+    var chComsArr = [];
+    console.log(inComs);
     for (var i = 0; i < inComs.length; i++) {
-      inComsArr.push(inComs[i].id);
+      if (inComs[i]) {
+        inComsArr.push(inComs[i].id);
+      }
     }
+    console.log(inComsArr);
+    for (var i = 0; i < chComs.length; i++) {
+      if (chComs[i] !== '') {
+        chComsArr.push(chComs[i].id);
+      }
+    }
+    $("#incumbentCommittees").prepend('<section class="committeesSumI"></section>');
+    $("#challengerCommittees").prepend('<section class="committeesSumC"></section>');
     // Send array for filings and receipt sums
-    committeeFilings(inComsArr);
+    committeeFilingsI(inComsArr);
+    committeeFilingsC(chComsArr);
   })
 
-  var committeeFilings = function(arr) {
+  var committeeFilingsI = function(arr) {
     console.log(arr);
     var arrLocal = arr;
     for (var i = 0; i < arr.length; i++) {
@@ -59,10 +73,31 @@ $(document).ready(function() {
           for (var j = 0; j < results.length; j++) {
             totalReceiptsSum += results[j].total_receipts;
           }
-          // return results;
-          // console.log(i);
           console.log(arrLocal);
-          $(".committeesSum").html("$" + totalReceiptsSum);
+          $(".committeesSumI").html("Total Spent by Associated Committees: $" + addCommas(totalReceiptsSum));
+          console.log(totalReceiptsSum);
+        }
+      })
+    }
+  }
+  var committeeFilingsC = function(arr) {
+    console.log(arr);
+    var arrLocal = arr;
+    for (var i = 0; i < arr.length; i++) {
+      var totalReceiptsSum = 0;
+      console.log(arrLocal[i]);
+      $.ajax({
+        url: "https://api.open.fec.gov/v1/committee/" + arr[i] + "/filings/?cycle=2016&page=1&per_page=20&api_key=" + apiKey,
+        method: 'GET',
+        success: function(filings) {
+          var results = filings.results;
+          console.log(arrLocal);
+          console.log(results);
+          for (var j = 0; j < results.length; j++) {
+            totalReceiptsSum += results[j].total_receipts;
+          }
+          console.log(arrLocal);
+          $(".committeesSumC").html("Total Spent by Committees: $" + addCommas(totalReceiptsSum));
           console.log(totalReceiptsSum);
         }
       })
@@ -75,20 +110,20 @@ $(document).ready(function() {
     var id = target.closest("aside").id;
 
     if (id === "incumbentView") {
-      $("#incumbentCommittees").html('<section class="committeesSum"></section>');
       if (finalObjI[candId].length === 0) {
-        $("#incumbentCommittees").append('<p>This candidate is not currently associated with any active committees</p>');
-      }
-      for (var i = 0; i < finalObjI[candId].length; i++) {
-        getCommsI(finalObjI[candId][i]);
+        $("#incumbentCommittees").html('<p>This candidate is not currently associated with any active committees</p>');
+      } else {
+        for (var i = 0; i < finalObjI[candId].length; i++) {
+          getCommsI(finalObjI[candId][i]);
+        }
       }
     } else if (id === 'challengerView') {
-      $("#challengerCommittees").html('<section class="committeesSum"></section>');
       if (finalObjC[candId].length === 0) {
-        $("#challengerCommittees").append('<p style="font-size: 2em">This candidate is not currently associated with any active committees</p> ');
-      }
-      for (var i = 0; i < finalObjC[candId].length; i++) {
-        getCommsC(finalObjC[candId][i]);
+        $("#challengerCommittees").html('<p style="font-size: 2em">This candidate is not currently associated with any active committees</p> ');
+      } else {
+        for (var i = 0; i < finalObjC[candId].length; i++) {
+          getCommsC(finalObjC[candId][i]);
+        }
       }
     }
   })
@@ -99,7 +134,7 @@ $(document).ready(function() {
       method: 'GET',
       success: function(committee) {
         var result = committee.results[0].name;
-        $("#incumbentCommittees").append('<p id="' + committee.results[0].committee_id + '" class="committeeName">' + result + '</p>');
+        $("#incumbentCommittees").prepend('<p id="' + committee.results[0].committee_id + '" class="committeeName">' + result + '</p>');
         return result;
       }
     })
@@ -110,7 +145,7 @@ $(document).ready(function() {
       method: 'GET',
       success: function(committee) {
         var result = committee.results[0].name;
-        $("#challengerCommittees").append('<p id="' + committee.results[0].committee_id + '" class="committeeName">' + result + '</p>');
+        $("#challengerCommittees").prepend('<p id="' + committee.results[0].committee_id + '" class="committeeName">' + result + '</p>');
         return result;
       }
     })
@@ -210,3 +245,20 @@ $(document).ready(function() {
     // Send finalObjC to calculate receipts
   }
 })
+
+
+
+
+
+function addCommas(nStr)
+{
+	nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
+}
