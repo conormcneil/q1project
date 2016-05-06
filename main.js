@@ -41,6 +41,7 @@ $(document).ready(function() {
     console.log(getStateFull($state));
     console.log(getChamberFull(chamber));
     $(".details").html("Candidates for the " + getStateFull($state) + " " + getChamberFull(chamber) + " Race: 2016");
+    $("#resetButton").show()
 
 
     $(".formError").html('');
@@ -71,7 +72,7 @@ $(document).ready(function() {
       return;
     }
     $("#calculateButton").hide();
-    $("#resetButton").show();
+    // $("#resetButton").show();
     for (var i = 0; i < inComs.length; i++) {
       if (inComs[i]) {
         inComsArr.push(inComs[i].id);
