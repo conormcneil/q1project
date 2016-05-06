@@ -81,7 +81,6 @@ $(document).ready(function() {
         inComsArr.push(inComs[i].id);
       }
     }
-    console.log(inComsArr);
     for (var i = 0; i < chComs.length; i++) {
       if (chComs[i] !== '') {
         chComsArr.push(chComs[i].id);
@@ -93,47 +92,35 @@ $(document).ready(function() {
   })
 
   var committeeFilingsI = function(arr) {
-    console.log(arr);
     var arrLocal = arr;
     for (var i = 0; i < arr.length; i++) {
       var totalReceiptsSum = 0;
-      console.log(arrLocal[i]);
       $.ajax({
         url: "https://g-fec.herokuapp.com/committee/" + arr[i] + "/filings/?cycle=2016&page=1&per_page=20&api_key=" + apiKey,
         method: 'GET',
         success: function(filings) {
           var results = filings.results;
-          console.log(arrLocal);
-          console.log(results);
           for (var j = 0; j < results.length; j++) {
             totalReceiptsSum += results[j].total_receipts;
           }
-          console.log(arrLocal);
           $(".committeesSumI").html("<p>Total Spent: $" + addCommas(totalReceiptsSum) + "</p>");
-          console.log(totalReceiptsSum);
         }
       })
     }
   }
   var committeeFilingsC = function(arr) {
-    console.log(arr);
     var arrLocal = arr;
     for (var i = 0; i < arr.length; i++) {
       var totalReceiptsSum = 0;
-      console.log(arrLocal[i]);
       $.ajax({
         url: "https://g-fec.herokuapp.com/committee/" + arr[i] + "/filings/?cycle=2016&page=1&per_page=20&api_key=" + apiKey,
         method: 'GET',
         success: function(filings) {
           var results = filings.results;
-          console.log(arrLocal);
-          console.log(results);
           for (var j = 0; j < results.length; j++) {
             totalReceiptsSum += results[j].total_receipts;
           }
-          console.log(arrLocal);
           $(".committeesSumC").html("<p>Total Spent: $" + addCommas(totalReceiptsSum) + "</p>");
-          console.log(totalReceiptsSum);
         }
       })
     }
@@ -144,8 +131,6 @@ $(document).ready(function() {
     var candId = event.target.id;
     var target = event.target;
     var id = target.closest("aside").id;
-    console.log(target.innerHTML);
-
     if (id === "incumbentView") {
       $("#incumbentCommittees").html('');
       if (finalObjI[candId] === undefined) {
@@ -287,8 +272,6 @@ $(document).ready(function() {
     }
   }
 }); // End document.ready
-
-
 
 function getChamberFull(abbr) {
   if (abbr === "H") {
