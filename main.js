@@ -15,6 +15,7 @@ $(document).ready(function() {
   var valsI = [];
   var finalObjC = {};
   var finalObjI = {};
+  var stateFull = ''
 
   var displayStates = function(arr) {
     for (var i = 0; i < arr.length; i++) {
@@ -37,6 +38,9 @@ $(document).ready(function() {
       return;
     }
     console.log($state,chamber);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    getStateFull($state);
+    $(".details").html($state + chamber);
 
 
     $(".formError").html('');
@@ -145,7 +149,8 @@ $(document).ready(function() {
       if (finalObjI[candId] === undefined) {
         return
       } else if (finalObjI[candId].length === 0) {
-        $("#incumbentCommittees").html(candId + '<p>This candidate is not currently associated with any active committees</p>');
+        $("#incumbentCommittees").html('<p>This candidate is not currently associated with any active committees</p>');
+        $("#incumbentCommittees").prepend('<p class="name">' + target.innerHTML + '</p>');
       } else {
         $("#incumbentCommittees").prepend('<p class="name">' + target.innerHTML + '</p>');
         for (var i = 0; i < finalObjI[candId].length; i++) {
@@ -156,7 +161,8 @@ $(document).ready(function() {
       $("#challengerCommittees").html('');
       if (finalObjC[candId] === undefined) {
       } else if (finalObjC[candId].length === 0) {
-        $("#challengerCommittees").html(candId + '<p style="font-size: 2em">This candidate is not currently associated with any active committees</p> ');
+        $("#challengerCommittees").html('<p style="font-size: 2em">This candidate is not currently associated with any active committees</p> ');
+        $("#challengerCommittees").prepend('<p class="name">' + target.innerHTML + '</p>');
       } else {
         $("#challengerCommittees").prepend('<p class="name">' + target.innerHTML + '</p>');
         for (var i = 0; i < finalObjC[candId].length; i++) {
@@ -284,8 +290,13 @@ $(document).ready(function() {
 
 
 
-function addCommas(nStr)
-{
+function getStateFull(abbr) {
+  case 'abbr':
+    stateFull = 'FULLNAME';
+    break;
+}
+
+function addCommas(nStr) {
 	nStr += '';
 	x = nStr.split('.');
 	x1 = x[0];

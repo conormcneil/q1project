@@ -171,6 +171,7 @@ select, button, #submitButton {
 
 #calculateButton {
   display: none;
+  margin-bottom: 3vh;
 }
 
 #submitButton {
