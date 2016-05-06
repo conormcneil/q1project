@@ -170,8 +170,9 @@ section {
 
 #incumbentCommittees, #challengerCommittees {
   align-items: flex-start;
-
   display: inline-block;
+  /*position: fixed;*/
+  height: auto;
 }
 
 #incumbentCommittees>p:first-child, #challengerCommittees>p:first-child {
