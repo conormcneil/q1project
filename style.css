@@ -35,6 +35,8 @@ header {
 .details {
   margin-left: auto;
   margin-right: auto;
+  width: 35%;
+  border: none;
 }
 
 #moneySuit {
@@ -59,8 +61,13 @@ header {
   flex-wrap: nowrap;
 }
 
+#chamberSearch {
+  margin-left: 3%;
+}
+
 aside, article {
-  /*width: 32.75%;*/
+  width: 49%;
+  height: auto;
   min-height: 8vh;
   border-style: solid;
   border-width: 0.1em;
@@ -96,7 +103,7 @@ aside, article {
 #incumbentView, #challengerView, #incumbentCommittees, #challengerCommittees {
   background-color: rgba(0,0,0,0);
   color: white;
-  /*border-style: none;*/
+  border-style: none;
   margin: 2vh;
   margin-top: 1vh;
   width: 25%;
@@ -109,7 +116,15 @@ aside, article {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
+}
+
+#incumbentCommittees, #challengerCommittees {
+  justify-content: center;
+  border-style: solid;
+  border-width: 0.1em;
+  border-color: grey;
+  border-radius: 10px;
 }
 
 .committeesSum {

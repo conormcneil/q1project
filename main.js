@@ -76,8 +76,8 @@ $(document).ready(function() {
         chComsArr.push(chComs[i].id);
       }
     }
-    $("#incumbentCommittees").append('<section class="committeesSumI"></section>');
-    $("#challengerCommittees").append('<section class="committeesSumC"></section>');
+    $("#incumbentCommittees").prepend('<section class="committeesSumI"></section>');
+    $("#challengerCommittees").prepend('<section class="committeesSumC"></section>');
     // Send array for filings and receipt sums
     committeeFilingsI(inComsArr);
     committeeFilingsC(chComsArr);
@@ -138,7 +138,9 @@ $(document).ready(function() {
 
     if (id === "incumbentView") {
       $("#incumbentCommittees").html('');
-      if (finalObjI[candId].length === 0) {
+      if (finalObjI[candId] === undefined) {
+        return
+      } else if (finalObjI[candId].length === 0) {
         $("#incumbentCommittees").html(candId + '<p>This candidate is not currently associated with any active committees</p>');
       } else {
         $("#incumbentCommittees").prepend('<p class="name">' + target.innerHTML + '</p>');
@@ -148,7 +150,8 @@ $(document).ready(function() {
       }
     } else if (id === 'challengerView') {
       $("#challengerCommittees").html('');
-      if (finalObjC[candId].length === 0) {
+      if (finalObjC[candId] === undefined) {
+      } else if (finalObjC[candId].length === 0) {
         $("#challengerCommittees").html(candId + '<p style="font-size: 2em">This candidate is not currently associated with any active committees</p> ');
       } else {
         $("#challengerCommittees").prepend('<p class="name">' + target.innerHTML + '</p>');
