@@ -163,7 +163,7 @@ $(document).ready(function() {
       $("#challengerCommittees").html('');
       if (finalObjC[candId] === undefined) {
       } else if (finalObjC[candId].length === 0) {
-        $("#challengerCommittees").html('<p style="font-size: 2em">This candidate is not currently associated with any active committees</p> ');
+        $("#challengerCommittees").html('<p>This candidate is not currently associated with any active committees</p> ');
         $("#challengerCommittees").prepend('<p class="name">' + target.innerHTML + '</p>');
       } else {
         $("#challengerCommittees").prepend('<p class="name">' + target.innerHTML + '</p>');
