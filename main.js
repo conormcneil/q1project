@@ -99,7 +99,7 @@ $(document).ready(function() {
       var totalReceiptsSum = 0;
       console.log(arrLocal[i]);
       $.ajax({
-        url: "https://api.open.fec.gov/v1/committee/" + arr[i] + "/filings/?cycle=2016&page=1&per_page=20&api_key=" + apiKey,
+        url: "https://g-fec.herokuapp.com/committee/" + arr[i] + "/filings/?cycle=2016&page=1&per_page=20&api_key=" + apiKey,
         method: 'GET',
         success: function(filings) {
           var results = filings.results;
@@ -122,7 +122,7 @@ $(document).ready(function() {
       var totalReceiptsSum = 0;
       console.log(arrLocal[i]);
       $.ajax({
-        url: "https://api.open.fec.gov/v1/committee/" + arr[i] + "/filings/?cycle=2016&page=1&per_page=20&api_key=" + apiKey,
+        url: "https://g-fec.herokuapp.com/committee/" + arr[i] + "/filings/?cycle=2016&page=1&per_page=20&api_key=" + apiKey,
         method: 'GET',
         success: function(filings) {
           var results = filings.results;
@@ -175,7 +175,7 @@ $(document).ready(function() {
   })
   var getCommsI = function(committeeID) {
     $.ajax({
-      url:"https://api.open.fec.gov/v1/committee/" + committeeID + "/?page=1&per_page=20&sort=name&api_key=" + apiKey,
+      url:"https://g-fec.herokuapp.com/committee/" + committeeID + "/?page=1&per_page=20&sort=name&api_key=" + apiKey,
       method: 'GET',
       success: function(committee) {
         var result = committee.results[0].name;
@@ -186,7 +186,7 @@ $(document).ready(function() {
   }
   var getCommsC = function(committeeID) {
     $.ajax({
-      url:"https://api.open.fec.gov/v1/committee/" + committeeID + "/?page=1&per_page=20&sort=name&api_key=" + apiKey,
+      url:"https://g-fec.herokuapp.com/committee/" + committeeID + "/?page=1&per_page=20&sort=name&api_key=" + apiKey,
       method: 'GET',
       success: function(committee) {
         var result = committee.results[0].name;
@@ -201,7 +201,7 @@ $(document).ready(function() {
     var $state = $(".stateForm").val();
     var chamber = $("#chamberSearch").val();
     $.ajax({
-      url: "https://api.open.fec.gov/v1/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=I&state=" + $state + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
+      url: "https://g-fec.herokuapp.com/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=I&state=" + $state + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
       method: 'GET',
       success: function(incumbents) {
         var results = incumbents.results;
@@ -218,7 +218,7 @@ $(document).ready(function() {
     var tmp = [];
     for (var i = 0; i < arr.length; i++) {
       $.ajax({
-        url: "https://api.open.fec.gov/v1/candidate/" + arr[i].candidate_id + "/committees/history/2016/?sort=-cycle&per_page=20&page=1&api_key=" + apiKey,
+        url: "https://g-fec.herokuapp.com/candidate/" + arr[i].candidate_id + "/committees/history/2016/?sort=-cycle&per_page=20&page=1&api_key=" + apiKey,
         method: 'GET',
         success: function(committees) { // returns with committee objects in an array per member
           tmp = [];
@@ -247,7 +247,7 @@ $(document).ready(function() {
     var $state = $(".stateForm").val();
     var chamber = $("#chamberSearch").val();
     $.ajax({
-      url: "https://api.open.fec.gov/v1/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=C&state=" + $state + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
+      url: "https://g-fec.herokuapp.com/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=C&state=" + $state + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
       method: 'GET',
       success: function(challengers) {
         var results = challengers.results;
@@ -263,7 +263,7 @@ $(document).ready(function() {
     var tmp = [];
     for (var i = 0; i < arr.length; i++) {
       $.ajax({
-        url: "https://api.open.fec.gov/v1/candidate/" + arr[i].candidate_id + "/committees/history/2016/?sort=-cycle&per_page=20&page=1&api_key=" + apiKey,
+        url: "https://g-fec.herokuapp.com/candidate/" + arr[i].candidate_id + "/committees/history/2016/?sort=-cycle&per_page=20&page=1&api_key=" + apiKey,
         method: 'GET',
         success: function(committees) { // returns with committee objects in an array per member
           tmp = [];
