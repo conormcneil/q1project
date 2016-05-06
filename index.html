@@ -17,6 +17,7 @@
       <h1>Campaign Finance</h1>
     </header>
       <main class="content">
+        <aside class="details"></aside>
         <section class="formError"></section>
         <section class="hideOnSubmit">
           <select class="stateForm form-control">
@@ -29,21 +30,22 @@
           </select>
         </section>
         <button id="submitButton" class="hideOnSubmit" type="submit">Submit</button>
+        <button id="calculateButton">Show Committee Spending</button>
+        <button id="resetButton"><a href="index.html">Reset</a></button>
 
 
-        <section class="committeeResults">
+        <!-- <section class="committeeResults"> -->
+        <section>
           <aside id="incumbentCommittees">
             <section class="committeesSumI"></section>
           </aside>
+        <!-- </section> -->
+        <!-- <section class="sideBySideMain"> -->
+          <aside id="incumbentView"></aside>
+          <aside id="challengerView"></aside>
           <aside id="challengerCommittees">
             <section class="committeesSumC"></section>
           </aside>
-        </section>
-        <button id="calculateButton">Show Committee Spending</button>
-        <button id="resetButton"><a href="index.html">Reset</a></button>
-        <section class="sideBySideMain">
-          <aside id="incumbentView"></aside>
-          <aside id="challengerView"></aside>
         </section>
 
       </main>

@@ -63,15 +63,6 @@ $(document).ready(function() {
       $("#challengerCommittees").html('<p class="error">Please select a candidate.</p>');
       return;
     }
-    // if (chComs[0].innerText === 'This candidate is not currently associated with any active committees') { // NO ASSOCIATED COMMITTEES
-    //   console.log('error no committees to sum');
-    //   if (confirm("This candidate is not currently associated with any active committees. Are you sure you would like to continue? Any other selected committees will be displayed.")) {
-    //
-    //   } else {
-    //     return;
-    //   }
-    //   return;
-    // }
     $("#calculateButton").hide();
     $("#resetButton").show();
     for (var i = 0; i < inComs.length; i++) {
@@ -85,8 +76,8 @@ $(document).ready(function() {
         chComsArr.push(chComs[i].id);
       }
     }
-    $("#incumbentCommittees").prepend('<section class="committeesSumI"></section>');
-    $("#challengerCommittees").prepend('<section class="committeesSumC"></section>');
+    $("#incumbentCommittees").append('<section class="committeesSumI"></section>');
+    $("#challengerCommittees").append('<section class="committeesSumC"></section>');
     // Send array for filings and receipt sums
     committeeFilingsI(inComsArr);
     committeeFilingsC(chComsArr);
@@ -143,12 +134,14 @@ $(document).ready(function() {
     var candId = event.target.id;
     var target = event.target;
     var id = target.closest("aside").id;
+    console.log(target.innerHTML);
 
     if (id === "incumbentView") {
       $("#incumbentCommittees").html('');
       if (finalObjI[candId].length === 0) {
-        $("#incumbentCommittees").html('<p>This candidate is not currently associated with any active committees</p>');
+        $("#incumbentCommittees").html(candId + '<p>This candidate is not currently associated with any active committees</p>');
       } else {
+        $("#incumbentCommittees").prepend('<p class="name">' + target.innerHTML + '</p>');
         for (var i = 0; i < finalObjI[candId].length; i++) {
           getCommsI(finalObjI[candId][i]);
         }
@@ -156,22 +149,22 @@ $(document).ready(function() {
     } else if (id === 'challengerView') {
       $("#challengerCommittees").html('');
       if (finalObjC[candId].length === 0) {
-        $("#challengerCommittees").html('<p style="font-size: 2em">This candidate is not currently associated with any active committees</p> ');
+        $("#challengerCommittees").html(candId + '<p style="font-size: 2em">This candidate is not currently associated with any active committees</p> ');
       } else {
+        $("#challengerCommittees").prepend('<p class="name">' + target.innerHTML + '</p>');
         for (var i = 0; i < finalObjC[candId].length; i++) {
           getCommsC(finalObjC[candId][i]);
         }
       }
     }
   })
-
   var getCommsI = function(committeeID) {
     $.ajax({
       url:"https://api.open.fec.gov/v1/committee/" + committeeID + "/?page=1&per_page=20&sort=name&api_key=" + apiKey,
       method: 'GET',
       success: function(committee) {
         var result = committee.results[0].name;
-        $("#incumbentCommittees").prepend('<p id="' + committee.results[0].committee_id + '" class="committeeName">' + result + '</p>');
+        $("#incumbentCommittees").append('<p id="' + committee.results[0].committee_id + '" class="committeeName">' + result + '</p>');
         return result;
       }
     })
@@ -182,7 +175,7 @@ $(document).ready(function() {
       method: 'GET',
       success: function(committee) {
         var result = committee.results[0].name;
-        $("#challengerCommittees").prepend('<p id="' + committee.results[0].committee_id + '" class="committeeName">' + result + '</p>');
+        $("#challengerCommittees").append('<p id="' + committee.results[0].committee_id + '" class="committeeName">' + result + '</p>');
         return result;
       }
     })

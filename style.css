@@ -1,12 +1,8 @@
-/** {
-  border-style: dashed;
-  border-width: thin;
-}*/
-
 body {
   background-image: url("img/CAMPAIGN-FINANCE-REFORM-facebook.jpg");
   background-repeat: repeat-y;
   background-position: top;
+  min-width: 320px;
 }
 
 .container{
@@ -36,6 +32,11 @@ header {
   align-items: center;
 }
 
+.details {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #moneySuit {
   height: inherit;
 }
@@ -59,7 +60,7 @@ header {
 }
 
 aside, article {
-  width: 32.75%;
+  /*width: 32.75%;*/
   min-height: 8vh;
   border-style: solid;
   border-width: 0.1em;
@@ -96,9 +97,9 @@ aside, article {
   background-color: rgba(0,0,0,0);
   color: white;
   /*border-style: none;*/
-  margin: 5vh;
+  margin: 2vh;
   margin-top: 1vh;
-  width: 40vw;
+  width: 25%;
   height: auto;
   text-align: center;
   font-variant: small-caps;
@@ -114,7 +115,7 @@ aside, article {
 .committeesSum {
   background-color: rgba(255,51,51,1);
   height: auto;
-  width: 100%;
+  /*width: 100%;*/
   border-radius: 1px;
   font-size: 2em;
 }
@@ -122,21 +123,14 @@ aside, article {
 .finance {
   background-color: white;
   color: black;
-  width: 100%;
+  /*width: 100%;*/
   flex-direction: column;
   flex-wrap: wrap;
 }
 
-.tabLeft {
-  float: right;
-  font-size: 0.5em;
-  width: 45%;
-}
-
-.tabRight {
-  float: right;
-  font-size: 0.5em;
-  width: 45%;
+.committeesSumI, .committeesSumC {
+  /*width: 100%;*/
+  color: hotpink;
 }
 
 footer {
@@ -192,4 +186,19 @@ a {
 .error {
   color: red;
   font-size: 1.5em;
+}
+
+.name {
+  color: yellow;
+}
+
+aside p {
+  width: 100%;
+  margin: 1%;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  min-width: 320px;
 }
