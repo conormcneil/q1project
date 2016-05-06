@@ -36,6 +36,9 @@ $(document).ready(function() {
       $(".formError").html("Please choose a chamber.");
       return;
     }
+    console.log($state,chamber);
+
+
     $(".formError").html('');
     $("#incumbentView").html('');
     $("#challengerView").html('');
@@ -100,7 +103,7 @@ $(document).ready(function() {
             totalReceiptsSum += results[j].total_receipts;
           }
           console.log(arrLocal);
-          $(".committeesSumI").html("Total Spent by Associated Committees: $" + addCommas(totalReceiptsSum));
+          $(".committeesSumI").html("Total Spent by Committees: $" + addCommas(totalReceiptsSum));
           console.log(totalReceiptsSum);
         }
       })
@@ -130,7 +133,8 @@ $(document).ready(function() {
     }
   }
 
-  $("aside").click(function() {
+  $("aside").click(function(e) {
+    e.stopPropagation();
     var candId = event.target.id;
     var target = event.target;
     var id = target.closest("aside").id;
