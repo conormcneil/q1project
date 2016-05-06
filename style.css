@@ -5,6 +5,12 @@ body {
   min-width: 320px;
 }
 
+.content {
+  text-align: center;
+  margin-top: 10vh;
+  width: 85vw;
+}
+
 .container{
   display: flex;
   flex-wrap: wrap;
@@ -43,11 +49,6 @@ header {
   order: 1;
 }
 
-.content {
-  text-align: center;
-  margin-top: 10vh;
-}
-
 .sideBySideMain, .committeeResults {
   display: flex;
   flex-direction: row;
@@ -66,7 +67,7 @@ aside, article {
   border-style: solid;
   border-width: 0.1em;
   border-color: grey;
-  /*border-radius: 10px;*/
+  border-radius: 5px;
   color: white;
 }
 
@@ -79,7 +80,12 @@ aside p {
 section {
   display: flex;
   justify-content: center;
-  min-width: 320px;
+  width: 100%;
+}
+
+.committeesSumC>p, .committeesSumI>p {
+  font-size: 1.2em;
+  color: orange;
 }
 
 .details {
@@ -134,18 +140,28 @@ section {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
+  border-radius: 5px;
 }
 
 #incumbentCommittees, #challengerCommittees {
   align-items: flex-start;
-  border-style: solid;
+  /*border-style: solid;
   border-width: 0.1em;
-  border-color: grey;
-  border-radius: 10px;
+  border-color: grey;*/
+  /*border-radius: 10px;*/
   display: inline-block;
 }
 
 #incumbentCommittees>p:first-child, #challengerCommittees>p:first-child {
+  color: orange;
+  font-size: 1.3em;
+  margin-bottom: 10%;
+  border-bottom: solid;
+  border-color: white;
+  border-width: thin;
+}
+
+#incumbentCommittees p, #challengerCommittees p {
   color: orange;
   margin-bottom: 5%;
 }
@@ -217,8 +233,4 @@ a {
 .error {
   color: red;
   font-size: 1.5em;
-}
-
-.name {
-  color: yellow;
 }

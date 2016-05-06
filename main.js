@@ -72,7 +72,6 @@ $(document).ready(function() {
       return;
     }
     $("#calculateButton").hide();
-    // $("#resetButton").show();
     for (var i = 0; i < inComs.length; i++) {
       if (inComs[i]) {
         inComsArr.push(inComs[i].id);
@@ -106,7 +105,7 @@ $(document).ready(function() {
             totalReceiptsSum += results[j].total_receipts;
           }
           console.log(arrLocal);
-          $(".committeesSumI").html("<p>Total Spent by Committees: $" + addCommas(totalReceiptsSum) + "</p>");
+          $(".committeesSumI").html("<p>Total Spent: $" + addCommas(totalReceiptsSum) + "</p>");
           console.log(totalReceiptsSum);
         }
       })
@@ -129,7 +128,7 @@ $(document).ready(function() {
             totalReceiptsSum += results[j].total_receipts;
           }
           console.log(arrLocal);
-          $(".committeesSumC").html("<p>Total Spent by Committees: $" + addCommas(totalReceiptsSum) + "</p>");
+          $(".committeesSumC").html("<p>Total Spent: $" + addCommas(totalReceiptsSum) + "</p>");
           console.log(totalReceiptsSum);
         }
       })
