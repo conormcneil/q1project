@@ -32,12 +32,7 @@ header {
   align-items: center;
 }
 
-.details {
-  margin-left: auto;
-  margin-right: auto;
-  width: 35%;
-  border: none;
-}
+
 
 #moneySuit {
   height: inherit;
@@ -75,6 +70,29 @@ aside, article {
   border-color: grey;
   /*border-radius: 10px;*/
   color: white;
+}
+
+aside p {
+  width: 100%;
+  margin: 1%;
+  /*color: black;*/
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  min-width: 320px;
+}
+
+.details {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  border: none;
+  font-family: arial;
+  font-size: 2em;
+  color: white;
+  font-variant: small-caps;
 }
 
 .REP, .CON {
@@ -201,16 +219,4 @@ a {
 
 .name {
   color: yellow;
-}
-
-aside p {
-  width: 100%;
-  margin: 1%;
-  /*color: black;*/
-}
-
-section {
-  display: flex;
-  justify-content: center;
-  min-width: 320px;
 }

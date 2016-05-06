@@ -37,10 +37,10 @@ $(document).ready(function() {
       $(".formError").html("Please choose a chamber.");
       return;
     }
-    console.log($state,chamber);
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    getStateFull($state);
-    $(".details").html($state + chamber);
+    console.log(getStateFull($state));
+    console.log(getChamberFull(chamber));
+    $(".details").html("Candidates for the " + getStateFull($state) + " " + getChamberFull(chamber) + " Race: 2016");
 
 
     $(".formError").html('');
@@ -83,8 +83,6 @@ $(document).ready(function() {
         chComsArr.push(chComs[i].id);
       }
     }
-    $("#incumbentCommittees").prepend('<section class="committeesSumI"></section>');
-    $("#challengerCommittees").prepend('<section class="committeesSumC"></section>');
     // Send array for filings and receipt sums
     committeeFilingsI(inComsArr);
     committeeFilingsC(chComsArr);
@@ -107,7 +105,7 @@ $(document).ready(function() {
             totalReceiptsSum += results[j].total_receipts;
           }
           console.log(arrLocal);
-          $(".committeesSumI").html("Total Spent by Committees: $" + addCommas(totalReceiptsSum));
+          $(".committeesSumI").html("<p>Total Spent by Committees: $" + addCommas(totalReceiptsSum) + "</p>");
           console.log(totalReceiptsSum);
         }
       })
@@ -130,7 +128,7 @@ $(document).ready(function() {
             totalReceiptsSum += results[j].total_receipts;
           }
           console.log(arrLocal);
-          $(".committeesSumC").html("Total Spent by Committees: $" + addCommas(totalReceiptsSum));
+          $(".committeesSumC").html("<p>Total Spent by Committees: $" + addCommas(totalReceiptsSum) + "</p>");
           console.log(totalReceiptsSum);
         }
       })
@@ -284,16 +282,172 @@ $(document).ready(function() {
       finalObjC[keys[i].candidate_id] = values[i];
     }
   }
-})
+}); // End document.ready
 
 
 
-
+function getChamberFull(abbr) {
+  if (abbr === "H") {
+    return "House of Representatives";
+  } else if (abbr === "S") {
+    return "Senate";
+  }
+}
 
 function getStateFull(abbr) {
-  case 'abbr':
-    stateFull = 'FULLNAME';
+  switch (abbr) {
+  case 'AL':
+    stateFull = 'Alabama';
     break;
+  case 'AK':
+    stateFull = 'Alaska';
+    break;
+  case 'AZ':
+    stateFull = 'Arizona';
+    break;
+  case 'AR':
+    stateFull = 'Arkansas';
+    break;
+  case 'CA':
+    stateFull = 'California';
+    break;
+  case 'CO':
+    stateFull = 'Colorado';
+    break;
+  case 'CT':
+    stateFull = 'Connecticut';
+    break;
+  case 'DE':
+    stateFull = 'Deleware';
+    break;
+  case 'FL':
+    stateFull = 'Florida';
+    break;
+  case 'GA':
+    stateFull = 'Georgia';
+    break;
+  case 'HI':
+    stateFull = 'Hawaii';
+    break;
+  case 'ID':
+    stateFull = 'Idaho';
+    break;
+  case 'IL':
+    stateFull = 'Illinois';
+    break;
+  case 'IN':
+    stateFull = 'Indiana';
+    break;
+  case 'IA':
+    stateFull = 'Iowa';
+    break;
+  case 'KS':
+    stateFull = 'Kansas';
+    break;
+  case 'KY':
+    stateFull = 'Kentucky';
+    break;
+  case 'LA':
+    stateFull = 'Louisiana';
+    break;
+  case 'ME':
+    stateFull = 'Maine';
+    break;
+  case 'MD':
+    stateFull = 'Maryland';
+    break;
+  case 'MA':
+    stateFull = 'Massachusetts';
+    break;
+  case 'MI':
+    stateFull = 'Michigan';
+    break;
+  case 'MN':
+    stateFull = 'Minnesota';
+    break;
+  case 'MS':
+    stateFull = 'Mississippi';
+    break;
+  case 'MO':
+    stateFull = 'Missouri';
+    break;
+  case 'MT':
+    stateFull = 'Montana';
+    break;
+  case 'NE':
+    stateFull = 'Nebraska';
+    break;
+  case 'NV':
+    stateFull = 'Nevada';
+    break;
+  case 'NH':
+    stateFull = 'New Hampshire';
+    break;
+  case 'NJ':
+    stateFull = 'New Jersey';
+    break;
+  case 'NM':
+    stateFull = 'New Mexico';
+    break;
+  case 'NY':
+    stateFull = 'New York';
+    break;
+  case 'NC':
+    stateFull = 'North Carolina';
+    break;
+  case 'ND':
+    stateFull = 'North Dakota';
+    break;
+  case 'OH':
+    stateFull = 'Ohio';
+    break;
+  case 'OK':
+    stateFull = 'Oklahoma';
+    break;
+  case 'OR':
+    stateFull = 'Oregon';
+    break;
+  case 'PA':
+    stateFull = 'Pennsylvania';
+    break;
+  case 'RI':
+    stateFull = 'Rhode Island';
+    break;
+  case 'SC':
+    stateFull = 'South Carolina';
+    break;
+  case 'SD':
+    stateFull = 'South Dakota';
+    break;
+  case 'TN':
+    stateFull = 'Tennessee';
+    break;
+  case 'TX':
+    stateFull = 'Texas';
+    break;
+  case 'UT':
+    stateFull = 'Utah';
+    break;
+  case 'VT':
+    stateFull = 'Vermont';
+    break;
+  case 'VA':
+    stateFull = 'Virginia';
+    break;
+  case 'WA':
+    stateFull = 'Washington';
+    break;
+  case 'WV':
+    stateFull = 'West Virginia';
+    break;
+  case 'WI':
+    stateFull = 'Wisconsin';
+    break;
+  case 'WY':
+    stateFull = 'Wyoming';
+    break;
+  }
+  return stateFull;
 }
 
 function addCommas(nStr) {
