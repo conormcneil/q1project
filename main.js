@@ -2,7 +2,6 @@ $(document).ready(function() {
   // window.localStorage.clear();
   if (!localStorage.getItem('isFirstVisit')) {
     localStorage.setItem('isFirstVisit',true);
-    console.log("Welcome to my website!");
     $(".content").hide();
     $(".intro").show();
     $("#introButton").click(function() {
@@ -33,13 +32,11 @@ $(document).ready(function() {
   $("#submitButton").click(function() {
     var $state = $(".stateForm").val();
     if (!$state) {
-      console.log("no state");
       $(".formError").html("Please select a state.");
       return;
     }
     var chamber = $("#chamberSearch").val();
     if (!chamber) {
-      console.log("error");
       $(".formError").html("Please choose a chamber.");
       return;
     }
@@ -66,12 +63,10 @@ $(document).ready(function() {
     var chComs = $("#challengerCommittees").children();
     var chComsArr = [];
     if (inComs.length === 0) {
-      console.log('error no candidate selected');
       $("#incumbentCommittees").html('<p class="error">Please select a candidate.</p>');
       return;
     }
     if (chComs.length === 0) {
-      console.log('error no candidate selected');
       $("#challengerCommittees").html('<p class="error">Please select a candidate.</p>');
       return;
     }
@@ -95,6 +90,7 @@ $(document).ready(function() {
     var arrLocal = arr;
     for (var i = 0; i < arr.length; i++) {
       var totalReceiptsSum = 0;
+      var totalReceiptsSumFixed;
       $.ajax({
         url: "https://g-fec.herokuapp.com/committee/" + arr[i] + "/filings/?cycle=2016&page=1&per_page=20&api_key=" + apiKey,
         method: 'GET',
@@ -103,7 +99,8 @@ $(document).ready(function() {
           for (var j = 0; j < results.length; j++) {
             totalReceiptsSum += results[j].total_receipts;
           }
-          $(".committeesSumI").html("<p>Total Spent: $" + addCommas(totalReceiptsSum) + "</p>");
+          totalReceiptsSumFixed = totalReceiptsSum.toFixed(2);
+          $(".committeesSumI").html("<p>Total Spent: $" + addCommas(totalReceiptsSumFixed) + "</p>");
         }
       })
     }
@@ -112,6 +109,7 @@ $(document).ready(function() {
     var arrLocal = arr;
     for (var i = 0; i < arr.length; i++) {
       var totalReceiptsSum = 0;
+      var totalReceiptsSumFixed;
       $.ajax({
         url: "https://g-fec.herokuapp.com/committee/" + arr[i] + "/filings/?cycle=2016&page=1&per_page=20&api_key=" + apiKey,
         method: 'GET',
@@ -120,7 +118,8 @@ $(document).ready(function() {
           for (var j = 0; j < results.length; j++) {
             totalReceiptsSum += results[j].total_receipts;
           }
-          $(".committeesSumC").html("<p>Total Spent: $" + addCommas(totalReceiptsSum) + "</p>");
+          totalReceiptsSumFixed = totalReceiptsSum.toFixed(2);
+          $(".committeesSumC").html("<p>Total Spent: $" + addCommas(totalReceiptsSumFixed) + "</p>");
         }
       })
     }
