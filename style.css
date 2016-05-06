@@ -1,8 +1,25 @@
 body {
-  background-image: url("img/CAMPAIGN-FINANCE-REFORM-facebook.jpg");
+  background-image: url("img/money_pile_edit.jpg");
   background-repeat: repeat-y;
   background-position: top;
   min-width: 320px;
+  font-family: roboto;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+h1 {
+  color: grey;
+}
+
+.intro {
+  display: none;
+  text-align: center;
+  margin-top: 10vh;
+  width: 85vw;
 }
 
 .content {
@@ -20,12 +37,12 @@ body {
 
 header {
   text-align: center;
-  font-family: arial;
+  font-family: Roboto;
   font-variant: small-caps;
   font-size: 1.3em;
   width: 100%;
   margin: 0px 0px 0px 0px;
-  background-color: #000026;
+  background-color: rgba(2,5,41,1);
   color: grey;
   align-self: center;
   height: 10vh;
@@ -49,24 +66,15 @@ header {
   order: 1;
 }
 
-.sideBySideMain, .committeeResults {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
-
 #chamberSearch {
   margin-left: 3%;
 }
 
-aside, article {
+article {
   min-width: auto;
   max-width: 49%;
   height: auto;
   min-height: 8vh;
-  /*border-style: solid;
-  border-width: 0.1em;
-  border-color: grey;*/
   border-radius: 5px;
   color: white;
 }
@@ -74,7 +82,6 @@ aside, article {
 aside p {
   width: 100%;
   margin: 1%;
-  /*color: black;*/
 }
 
 section {
@@ -83,9 +90,23 @@ section {
   width: 100%;
 }
 
+.intro {
+  margin-top: 5vh;
+  width: 50vw;
+  font-family: Roboto;
+  flex-direction: column;
+  color: white;
+  font-weight: 700;
+}
+
+.intro h2 {
+  color: rgba(255,78,0,1);
+
+}
+
 .committeesSumC>p, .committeesSumI>p {
   font-size: 1.2em;
-  color: orange;
+  color: rgba(67,153,28,1);
 }
 
 .details {
@@ -93,7 +114,7 @@ section {
   margin-right: auto;
   width: 100%;
   border: none;
-  font-family: arial;
+  font-family: roboto;
   font-size: 2em;
   color: white;
   font-variant: small-caps;
@@ -133,7 +154,7 @@ section {
   height: auto;
   text-align: center;
   font-variant: small-caps;
-  font-family: arial;
+  font-family: Roboto;
   font-weight: 600;
   display: flex;
   flex-direction: row;
@@ -143,17 +164,18 @@ section {
   border-radius: 5px;
 }
 
+#incumbentViewTitle, #challengerViewTitle, #incumbentCommitteesTitle, #challengerCommitteesTitle {
+  background-color: rgba(0,0,0,0);
+}
+
 #incumbentCommittees, #challengerCommittees {
   align-items: flex-start;
-  /*border-style: solid;
-  border-width: 0.1em;
-  border-color: grey;*/
-  /*border-radius: 10px;*/
+
   display: inline-block;
 }
 
 #incumbentCommittees>p:first-child, #challengerCommittees>p:first-child {
-  color: orange;
+  color: rgba(255,78,0,1);
   font-size: 1.3em;
   margin-bottom: 10%;
   border-bottom: solid;
@@ -162,27 +184,21 @@ section {
 }
 
 #incumbentCommittees p, #challengerCommittees p {
-  color: orange;
+  color: rgba(255,78,0,1);
   margin-bottom: 5%;
 }
 
 .finance {
   background-color: white;
   color: black;
-  /*width: 100%;*/
   flex-direction: column;
   flex-wrap: wrap;
 }
 
-.committeesSumI, .committeesSumC, .committeesSumITitle, .committeesSumCTitle {
-  /*width: 100%;*/
-  /*color: hotpink;*/
-}
-
 footer {
   text-align: center;
-  font-family: arial;
-  background-color: orange;
+  font-family: roboto;
+  background-color: rgba(255,78,0,1);
   width: 100vw;
   order: 1;
   position: fixed;
@@ -197,12 +213,13 @@ footer {
 }
 
 select, button, #submitButton {
-  background-color: darkblue;
+  background-color: rgba(2,5,41,1);
   font-size: 1.2em;
   color: white;
   height: auto;
   width: auto;
   border-radius: 8px;
+  font-variant: small-caps;
 }
 
 #calculateButton {
@@ -216,11 +233,6 @@ select, button, #submitButton {
 
 #resetButton {
   display: none;
-}
-
-a {
-  text-decoration: none;
-  color: white;
 }
 
 .formError {

@@ -4,59 +4,65 @@
   <meta charset="UTF-8">
   <title>Campaign Finance</title>
   <link rel="stylesheet" href="style.css">
-  <!-- <script src="jquery.js"></script> -->
-  <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script> <!-- jQuery -->
-  <!-- <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> <!-- D3 tag --> -->
+  <link href='https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed|Droid+Sans|Dosis|Cinzel|News+Cycle' rel='stylesheet' type='text/css'>
+  <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
   <script src="main.js" defer></script>
-  <!-- <script src="deleteme.js" defer></script> -->
 </head>
 <body>
   <div class="container">
     <header class="header">
       <img src="img/money_suit.jpeg" alt="" id="moneySuit">
-      <h1>Campaign Finance</h1>
+      <a href="index.html"><h1>Follow the Money</h1></a>
     </header>
-      <main class="content">
-        <section class="details"></section>
-        <section class="formError"></section>
-        <section class="hideOnSubmit">
-          <select class="stateForm form-control">
-            <!-- <option id="stateSearch" value="">Select a State</option> -->
-          </select>
-          <select name="" id="chamberSearch" class="chamberForm">
-            <!-- <option value="">Select a Chamber</option> -->
-            <option value="S">Senate</option>
-            <option value="H">House of Representatives</option>
-          </select>
-        </section>
-        <button id="submitButton" class="hideOnSubmit" type="submit">Submit</button>
-        <button id="calculateButton">Show Committee Spending</button>
-        <button id="resetButton"><a href="index.html">Reset</a></button>
 
+    <main class="intro">
+      <section class="intro">
+        <h2>Welcome to Follow the Money!</h2>
+        <p>Lots of us complain about the corrosive effects of money in politics. However, fewer people have the resources necessary to track how much money is spent by each candidate during an election cycle.</p>
+        <p>Follow the Money is designed to track how much money candidates are spending in races throughout the country.</p>
+      </section>
+      <button id="introButton">Start Searching!</button>
+    </main>
 
-        <!-- <section class="committeeResults"> -->
-        <section class="titles">
-          <aside id="incumbentCommitteesTitle">
-            <section class="committeesSumITitle">Associated Committees</section>
-            <section class="committeesSumI"></section>
-          </aside>
-          <aside id="incumbentViewTitle">Incumbent(s)</aside>
-          <aside id="challengerViewTitle">Challenger(s)</aside>
-          <aside id="challengerCommitteesTitle">
-            <section class="committeesSumCTitle">Associated Committees</section>
-            <section class="committeesSumC"></section>
-          </aside>
-        </section>
+    <main class="content">
+      <section class="details"></section>
+      <section class="formError"></section>
+      <section class="hideOnSubmit">
+        <select class="stateForm form-control">
+          <!-- <option id="stateSearch" value="">Select a State</option> -->
+        </select>
+        <select name="" id="chamberSearch" class="chamberForm">
+          <!-- <option value="">Select a Chamber</option> -->
+          <option value="S">Senate</option>
+          <option value="H">House of Representatives</option>
+        </select>
+      </section>
+      <button id="submitButton" class="hideOnSubmit" type="submit">Submit</button>
+      <button id="calculateButton">Show Committee Spending</button>
+      <button id="resetButton"><a href="index.html">Reset</a></button>
 
-        <section class="results">
-          <aside id="incumbentCommittees"></aside>
-          <aside id="incumbentView"></aside>
-          <aside id="challengerView"></aside>
-          <aside id="challengerCommittees"></aside>
-        </section>
+      <section class="titles">
+        <aside id="incumbentCommitteesTitle">
+          <section class="committeesSumITitle">Associated Committees</section>
+          <section class="committeesSumI"></section>
+        </aside>
+        <aside id="incumbentViewTitle">Incumbent(s)</aside>
+        <aside id="challengerViewTitle">Challenger(s)</aside>
+        <aside id="challengerCommitteesTitle">
+          <section class="committeesSumCTitle">Associated Committees</section>
+          <section class="committeesSumC"></section>
+        </aside>
+      </section>
 
-      </main>
-    <!-- <footer>©2016 conor kingston</footer> -->
+      <section class="results">
+        <aside id="incumbentCommittees"></aside>
+        <aside id="incumbentView"></aside>
+        <aside id="challengerView"></aside>
+        <aside id="challengerCommittees"></aside>
+      </section>
+
+    </main>
+    <!-- ©2016 conor kingston -->
   </div>
 </body>
 </html>

@@ -1,8 +1,14 @@
 $(document).ready(function() {
+  // window.localStorage.clear();
   if (!localStorage.getItem('isFirstVisit')) {
     localStorage.setItem('isFirstVisit',true);
     console.log("Welcome to my website!");
-    /// A cool way to display overlayed instructions?
+    $(".content").hide();
+    $(".intro").show();
+    $("#introButton").click(function() {
+      $(".content").show();
+      $(".intro").hide();
+    })
   }
 
   var apiKey = 'CmRwot11VrUfsEUf9IYGRJSNNacFhOzjQP5ULx7f';
@@ -37,9 +43,7 @@ $(document).ready(function() {
       $(".formError").html("Please choose a chamber.");
       return;
     }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    console.log(getStateFull($state));
-    console.log(getChamberFull(chamber));
+
     $(".details").html("Candidates for the " + getStateFull($state) + " " + getChamberFull(chamber) + " Race: 2016");
     $("#resetButton").show()
 
