@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  // window.localStorage.clear();
   if (!localStorage.getItem('isFirstVisit')) {
     localStorage.setItem('isFirstVisit',true);
     $(".content").hide();
@@ -14,6 +13,7 @@ $(document).ready(function() {
   var states = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Deleware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
   var statesAbbr = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
   var stateForm = $('.stateForm');
+
   var challengersFinalKeys = [];
   var incumbentsFinalKeys = [];
   var valsC = [];
@@ -43,7 +43,6 @@ $(document).ready(function() {
 
     $(".details").html("Candidates for the " + getStateFull($state) + " " + getChamberFull(chamber) + " Race: 2016");
     $("#resetButton").show()
-
 
     $(".formError").html('');
     $("#incumbentView").html('');
@@ -91,6 +90,7 @@ $(document).ready(function() {
     for (var i = 0; i < arr.length; i++) {
       var totalReceiptsSum = 0;
       var totalReceiptsSumFixed;
+      // REFACTOR Separate into new function
       $.ajax({
         url: "https://g-fec.herokuapp.com/committee/" + arr[i] + "/filings/?cycle=2016&page=1&per_page=20&api_key=" + apiKey,
         method: 'GET',
@@ -110,6 +110,7 @@ $(document).ready(function() {
     for (var i = 0; i < arr.length; i++) {
       var totalReceiptsSum = 0;
       var totalReceiptsSumFixed;
+      // REFACTOR Separate into new function
       $.ajax({
         url: "https://g-fec.herokuapp.com/committee/" + arr[i] + "/filings/?cycle=2016&page=1&per_page=20&api_key=" + apiKey,
         method: 'GET',
@@ -158,6 +159,7 @@ $(document).ready(function() {
     }
   })
   var getCommsI = function(committeeID) {
+    // REFACTOR Separate into new function
     $.ajax({
       url:"https://g-fec.herokuapp.com/committee/" + committeeID + "/?page=1&per_page=20&sort=name&api_key=" + apiKey,
       method: 'GET',
@@ -169,6 +171,7 @@ $(document).ready(function() {
     })
   }
   var getCommsC = function(committeeID) {
+    // REFACTOR Separate into new function
     $.ajax({
       url:"https://g-fec.herokuapp.com/committee/" + committeeID + "/?page=1&per_page=20&sort=name&api_key=" + apiKey,
       method: 'GET',
@@ -184,6 +187,7 @@ $(document).ready(function() {
   var getIncumbents = function() {
     var $state = $(".stateForm").val();
     var chamber = $("#chamberSearch").val();
+    // REFACTOR Separate into new function
     $.ajax({
       url: "https://g-fec.herokuapp.com/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=I&state=" + $state + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
       method: 'GET',
@@ -201,6 +205,7 @@ $(document).ready(function() {
   var getCommitteesI = function(arr) { // arr is array of candidates
     var tmp = [];
     for (var i = 0; i < arr.length; i++) {
+      // REFACTOR Separate into new function
       $.ajax({
         url: "https://g-fec.herokuapp.com/candidate/" + arr[i].candidate_id + "/committees/history/2016/?sort=-cycle&per_page=20&page=1&api_key=" + apiKey,
         method: 'GET',
@@ -230,6 +235,7 @@ $(document).ready(function() {
   var getChallengers = function() {
     var $state = $(".stateForm").val();
     var chamber = $("#chamberSearch").val();
+    // REFACTOR Separate into new function
     $.ajax({
       url: "https://g-fec.herokuapp.com/candidates/?page=1&sort=state&candidate_status=C&incumbent_challenge=C&state=" + $state + "&office=" + chamber + "&per_page=100&api_key=" + apiKey,
       method: 'GET',
@@ -246,6 +252,7 @@ $(document).ready(function() {
   var getCommitteesC = function(arr) { // arr is array of candidates
     var tmp = [];
     for (var i = 0; i < arr.length; i++) {
+      // REFACTOR Separate into new function
       $.ajax({
         url: "https://g-fec.herokuapp.com/candidate/" + arr[i].candidate_id + "/committees/history/2016/?sort=-cycle&per_page=20&page=1&api_key=" + apiKey,
         method: 'GET',
