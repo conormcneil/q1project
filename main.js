@@ -195,7 +195,7 @@ $(document).ready(function() {
         for (var i = 0; i < results.length; i++) {
           incumbentsFinalKeys.push(results[i].candidate_id);
           $("#incumbentView").append("<article id=" + results[i].candidate_id + " class=" + results[i].party + ">" + results[i].name + " (" + results[i].party.toLowerCase() + ")</article>");
-          localStorage.setItem(results[i].candidate_id,'');
+          // localStorage.setItem(results[i].candidate_id,'');
         }
         return getCommitteesI(results);
       }
