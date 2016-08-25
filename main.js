@@ -1,11 +1,10 @@
 $(document).ready(function() {
   if (!localStorage.getItem('isFirstVisit')) {
-    localStorage.setItem('isFirstVisit',true);
+    localStorage.setItem('isFirstVisit',false);
     $(".content").hide();
     $(".intro").show();
     $("#introButton").click(function() {
-      $(".content").show();
-      $(".intro").hide();
+      location.reload();
     })
   }
 
